@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="WpfLibrary.MenuIsland"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfLibrary"
+             mc:Ignorable="d" 
+             d:DesignHeight="48" d:DesignWidth="144">
+    <Grid Background="Transparent">
+        <Border x:Name="MenuDock" Grid.Row="1" CornerRadius="10" Panel.ZIndex="998"  Margin="0,10,0,0"
+                VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Collapsed" d:Visibility="Visible"
+                BorderThickness="0" Width="144" Height="48">
+            <Border.RenderTransform>
+                <ScaleTransform x:Name="MenuDockScaleTransform">
+                </ScaleTransform>
+            </Border.RenderTransform>
+            <DockPanel Background="Transparent"  Visibility="Visible">
+                <Button Background="#FFFCFCFC" BorderBrush="LightGray" BorderThickness="1" Foreground="Black"
+                                                Content="&#xE700;" FontFamily="Segoe MDL2 Assets" Width="32" Height="32" 
+                                                Margin="8" DockPanel.Dock="Left" HorizontalAlignment="Left"/>
+                <Button Background="#FFFCFCFC" BorderBrush="LightGray" BorderThickness="1" Foreground="Black"
+                                                Content="&#xE897;" FontFamily="Segoe MDL2 Assets" Width="32" Height="32" 
+                                                Margin="8" DockPanel.Dock="Left" HorizontalAlignment="Left"/>
+                <Button Background="#FFFCFCFC" BorderBrush="LightGray" BorderThickness="1" Foreground="Black"
+                                                Content="&#xE946;" FontFamily="Segoe MDL2 Assets" Width="32" Height="32" 
+                                                Margin="8" DockPanel.Dock="Left" HorizontalAlignment="Left"/>
+            </DockPanel>
+        </Border>
+        <Border x:Name="MenuIsland1" Grid.Row="1" CornerRadius="10" Width="{Binding ElementName=MenuDock,Path=ActualWidth}" Margin="{Binding ElementName=MenuDock,Path=Margin}"
+                                        Height="{Binding ElementName=MenuDock,Path=ActualHeight}" Panel.ZIndex="996" VerticalAlignment="Top" 
+                                        HorizontalAlignment="Center" Visibility="{Binding ElementName=MenuDock,Path=Visibility}">
+            <Border.Background>
+                <VisualBrush Visual="{Binding ElementName=mainGrid}" ViewboxUnits="RelativeToBoundingBox" Stretch="None" AlignmentY="Top" >
+                    <VisualBrush.Transform>
+                        <TransformGroup>
+                            <TranslateTransform Y="-15"/>
+                        </TransformGroup>
+                    </VisualBrush.Transform>
+                </VisualBrush>
+            </Border.Background>
+            <Border.RenderTransform>
+                <ScaleTransform x:Name="MenuIslandScaleTransform">
+                </ScaleTransform>
+            </Border.RenderTransform>
+            <Border.Effect>
+                <BlurEffect Radius="0" RenderingBias="Performance"></BlurEffect>
+            </Border.Effect>
+            <Border.Clip>
+                <RectangleGeometry Rect="0,0,144,48" RadiusX="10" RadiusY="10" x:Name="MenuClipRect">
+                </RectangleGeometry>
+            </Border.Clip>
+            <Rectangle Width="{Binding ElementName=MenuDock,Path=ActualWidth}" Height="{Binding ElementName=MenuDock,Path=ActualHeight}" Fill="#FFE0E0E0" Opacity=".9" />
+        </Border>
+        <Grid Grid.Row="1" Background="Gray" Opacity=".5" Visibility="{Binding ElementName=MenuDock,Path=Visibility}"></Grid>
+    </Grid>
+</UserControl>
