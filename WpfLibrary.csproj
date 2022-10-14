@@ -54,6 +54,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="NavigationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SearchControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -64,12 +68,18 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\BindingVisibilityConverter.cs" />
     <Compile Include="Converter\WindowStateMaximizedToThicknessConverter.cs" />
     <Compile Include="Converter\WindowStateNormalToThicknessConverter.cs" />
     <Compile Include="Extension\SystemExtension.cs" />
     <Compile Include="MenuIsland.xaml.cs">
       <DependentUpon>MenuIsland.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NavigationView.xaml.cs">
+      <DependentUpon>NavigationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationViewItem.cs" />
+    <Compile Include="NavigationViewItems.cs" />
     <Compile Include="NoWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -99,4 +109,7 @@
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>Copy "$(TargetPath)" "F:\EasyBIM\bin\Debug\$(ProjectName).dll"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

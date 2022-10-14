@@ -4,8 +4,11 @@
     xmlns:local="clr-namespace:WpfLibrary">
     <local:WindowStateMaximizedToThicknessConverter x:Key="WindowStateMaximizedToThicknessConverter" />
     <local:WindowStateNormalToThicknessConverter x:Key="WindowStateNormalToThicknessConverter" />
-
+    <local:BindingVisibilityConverter x:Key="BindingVisibilityConverter"/>
     <SolidColorBrush x:Key="Menu.Static.Background" Color="Transparent"/>
+    <SolidColorBrush x:Key="SystemDefaultBackgroundBrush" Color="#FFE6E5E5"/>
+
+
     <Style x:Key="MenuStyle" TargetType="{x:Type Menu}">
         <Setter Property="FontFamily" Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
         <Setter Property="FontSize" Value="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"/>
@@ -1179,11 +1182,10 @@
         </Style.Triggers>
     </Style>
 
-
-
-
-
     <Style TargetType="{x:Type local:NoWindow}">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="IsNavigationButton" Value="False"/>
+        <Setter Property="Topmost" Value="True"/>
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
                 <WindowChrome 
@@ -1196,15 +1198,17 @@
         </Setter>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:NoWindow}">
+                <ControlTemplate TargetType="{x:Type local:NoWindow}" x:Name="mainT">
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" x:Name="MainBorder">
-                        <Grid x:Name="LayoutRoot" Background="{TemplateBinding Background}"
-                              Margin="{Binding ElementName=mainWindow, Path=WindowState, Converter={StaticResource WindowStateMaximizedToThicknessConverter}, ConverterParameter={StaticResource MainWindowResizeThickness}}">
+                        <Grid x:Name="LayoutRoot" Background="{TemplateBinding Background}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="32" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <DockPanel Grid.Row="0" Background="LightGray" Name="TitleDock">
+                                <Button DockPanel.Dock="Left" x:Name="NavigationButton" Style="{StaticResource CaptionButtonStyle}"
+                                        Content="&#xE700;" FontFamily="Segoe MDL2 Assets" Visibility="{TemplateBinding IsNavigationButton,
+                                    Converter={StaticResource BindingVisibilityConverter}}"/>
                                 <StackPanel DockPanel.Dock="Left" x:Name="DockLeftPanel"/>
                                 <Button DockPanel.Dock="Right" x:Name="CloseBtn" Style="{StaticResource CaptionCloseButtonStyle}"
                                         Content="&#xE894;" FontFamily="Segoe MDL2 Assets">
@@ -1251,17 +1255,79 @@
                                 <Button DockPanel.Dock="Right" x:Name="MoreButton" Style="{StaticResource CaptionButtonStyle}" 
                                         Content="&#xE712;" FontFamily="Segoe MDL2 Assets"/>
                                 <StackPanel DockPanel.Dock="Left" x:Name="DockRightPanel"/>
-                                <Grid x:Name="titleArea" Background="Transparent" DockPanel.Dock="Right">
-                                    <TextBlock x:Name="titleAreaText" FontSize="12" Text=""
-                                   HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"
+                                <Grid x:Name="titleArea" Background="Transparent" DockPanel.Dock="Left">
+                                    <TextBlock x:Name="titleAreaText" FontSize="12" Text="{TemplateBinding Title}"
+                                   HorizontalAlignment="Left" TextTrimming="CharacterEllipsis"
                                    VerticalAlignment="Center" Margin="5,0" />
                                 </Grid>
                             </DockPanel>
                             <Grid Grid.Row="1" KeyboardNavigation.IsTabStop="False">
-                                <ContentPresenter x:Name="MainContentPresenter" KeyboardNavigation.TabNavigation="Cycle"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <!--<StackPanel Grid.Column="0" Visibility="{Binding ElementName=NavigationButton,Path=Visibility}">
+                                        <local:NavigationViewItem Icon="&#xE727;" MenuText="节点参数设置" Margin="0,0,0,0" x:Name="FirstNavigationViewItem"/>
+                                        <local:NavigationViewItem Icon="&#xE934;" MenuText="内力设置" Margin="{Binding ElementName=FirstNavigationViewItem,Path=Margin}"/>
+                                        <local:NavigationViewItem Icon="&#xE713;" MenuText="验算设置" Margin="{Binding ElementName=FirstNavigationViewItem,Path=Margin}"/>
+                                        <local:NavigationViewItem Icon="&#xE736;" MenuText="计算书" Margin="{Binding ElementName=FirstNavigationViewItem,Path=Margin}"/>
+                                    </StackPanel>-->
+                                    <ContentPresenter x:Name="MainContentPresenter" KeyboardNavigation.TabNavigation="Cycle" Grid.Column="1"/>
+                                </Grid>
                                 <local:MenuIsland x:Name="MenuDockIsland" Panel.ZIndex="-999"/>
                             </Grid>
                         </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Thickness x:Key="NavigationViewItemMargin">5</Thickness>
+    <Style TargetType="{x:Type local:NavigationViewItem}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:NavigationViewItem}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" Padding="0,6,0,6">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="IconTB"
+                                       Text="{TemplateBinding Icon}" FontSize="{TemplateBinding IconSize}" Margin="{StaticResource NavigationViewItemMargin}"/>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" x:Name="CommandTB"
+                                       Text="{TemplateBinding MenuText}" FontSize="{TemplateBinding MenuTextSize}" Margin="{StaticResource NavigationViewItemMargin}"/>
+                            <Grid Grid.Column="2"/>
+                            <Grid Grid.ColumnSpan="3" Name="Mask" Panel.ZIndex="-1"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="{DynamicResource CaptionTextHoverBorder}" />
+                            <Setter Property="Background" Value="{StaticResource CaptionBackground}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="Mask" Value="LightGray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:NavigationViewItems}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:NavigationViewItems}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

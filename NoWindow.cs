@@ -22,11 +22,6 @@ namespace WpfLibrary
     public class NoWindow : Window
     {
         /// <summary>
-        /// 动画播放时间
-        /// </summary>
-        private const double _duration = .1;
-
-        /// <summary>
         /// 最外层的边框
         /// </summary>
         private Border _mainBorder;
@@ -62,9 +57,14 @@ namespace WpfLibrary
         private Button _topButton;
 
         /// <summary>
-        /// 更多菜单按钮
+        /// 更多菜单按钮(陈动岛)
         /// </summary>
         private Button _moreButton;
+
+        /// <summary>
+        /// 左侧菜单导航栏按钮
+        /// </summary>
+        private Button _navigationButton;
 
         /// <summary>
         /// 陈动岛Panel
@@ -73,9 +73,43 @@ namespace WpfLibrary
 
         /// <summary>
         /// 标题栏左边
-        /// 
         /// </summary>
         private StackPanel _leftPanel;
+
+        /// <summary>
+        /// 是否显示更多按钮(陈动岛)
+        /// </summary>
+        public bool IsMoreButton
+        {
+            get { return (bool)GetValue(IsMoreButtonProperty); }
+            set { SetValue(IsMoreButtonProperty, value); }
+        }
+        public static readonly DependencyProperty IsMoreButtonProperty =
+            DependencyProperty.Register("IsMoreButton", typeof(bool), typeof(NoWindow), new PropertyMetadata(false));
+
+        /// <summary>
+        /// 是否显示导航菜单按钮
+        /// </summary>
+        public bool IsNavigationButton
+        {
+            get { return (bool)GetValue(IsNavigationButtonProperty); }
+            set { SetValue(IsNavigationButtonProperty, value); }
+        }
+        public static readonly DependencyProperty IsNavigationButtonProperty =
+            DependencyProperty.Register("IsNavigationButton", typeof(bool), typeof(NoWindow), new PropertyMetadata(false));
+
+        /// <summary>
+        /// 菜单栏按钮
+        /// </summary>
+        public NavigationViewItems MenuItems
+        {
+            get { return (NavigationViewItems)GetValue(MenuItemsProperty); }
+            set { SetValue(MenuItemsProperty, value); }
+        }
+        //默认值需要时线程安全的,但NavigationViewItems不是
+        public static readonly DependencyProperty MenuItemsProperty =
+            DependencyProperty.Register("MenuItems", typeof(NavigationViewItems), typeof(NoWindow), new PropertyMetadata(new NavigationViewItems()));
+
 
         /// <summary>
         /// 静态构造函数
@@ -100,6 +134,7 @@ namespace WpfLibrary
             _layoutRoot = _mainBorder.Child as Grid;
             _dockPanel = (DockPanel)Template.FindName("TitleDock", this);
 
+            _navigationButton = (Button)Template.FindName("NavigationButton", this);
             _closeButton = (Button)Template.FindName("CloseBtn", this);
             _closeButton.Click += ((a, b) =>
             {
@@ -130,22 +165,41 @@ namespace WpfLibrary
             _leftPanel = (StackPanel)Template.FindName("DockLeftPanel", this);
 
             _moreButton = (Button)Template.FindName("MoreButton", this);
-            _moreButton.Click += ((a, b) =>
+            if (this.IsMoreButton)
             {
-                _menuDockIsland.Show();
-            });
+                _moreButton.Click += ((a, b) =>
+                {
+                    _menuDockIsland.Show();
+                });
+            }
+            else
+            {
+                _moreButton.Visibility = Visibility.Collapsed;
+            }
             return;
         }
 
         /// <summary>
         /// 窗口改变时
+        /// 自适应的改变边距大小
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        /// <exception cref="NotImplementedException"></exception>
         private void NoWindow_StateChanged(object sender, EventArgs e)
         {
-
+            switch (this.WindowState)
+            {
+                case WindowState.Normal:
+                    this._layoutRoot.Margin = new Thickness(0);
+                    break;
+                case WindowState.Minimized:
+                    break;
+                case WindowState.Maximized:
+                    this._layoutRoot.Margin = new Thickness(6);
+                    break;
+                default:
+                    break;
+            }
         }
 
         /// <summary>

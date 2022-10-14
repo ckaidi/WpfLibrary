@@ -29,7 +29,7 @@
         <Border x:Name="MenuIsland1" Grid.Row="1" CornerRadius="10" Width="{Binding ElementName=MenuDock,Path=ActualWidth}" Margin="{Binding ElementName=MenuDock,Path=Margin}"
                                         Height="{Binding ElementName=MenuDock,Path=ActualHeight}" Panel.ZIndex="996" VerticalAlignment="Top" 
                                         HorizontalAlignment="Center" Visibility="{Binding ElementName=MenuDock,Path=Visibility}">
-            <Border.Background>
+            <!--<Border.Background>
                 <VisualBrush Visual="{Binding ElementName=mainGrid}" ViewboxUnits="RelativeToBoundingBox" Stretch="None" AlignmentY="Top" >
                     <VisualBrush.Transform>
                         <TransformGroup>
@@ -37,7 +37,7 @@
                         </TransformGroup>
                     </VisualBrush.Transform>
                 </VisualBrush>
-            </Border.Background>
+            </Border.Background>-->
             <Border.RenderTransform>
                 <ScaleTransform x:Name="MenuIslandScaleTransform">
                 </ScaleTransform>
