@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -68,7 +69,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\BindingVisibilityConverter.cs" />
+    <Compile Include="Converter\BindingVisibilityConverterCollapsed.cs" />
+    <Compile Include="Converter\BindingVisibilityConverterHidden.cs" />
     <Compile Include="Converter\WindowStateMaximizedToThicknessConverter.cs" />
     <Compile Include="Converter\WindowStateNormalToThicknessConverter.cs" />
     <Compile Include="Extension\SystemExtension.cs" />

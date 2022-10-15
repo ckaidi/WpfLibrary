@@ -4,9 +4,29 @@
     xmlns:local="clr-namespace:WpfLibrary">
     <local:WindowStateMaximizedToThicknessConverter x:Key="WindowStateMaximizedToThicknessConverter" />
     <local:WindowStateNormalToThicknessConverter x:Key="WindowStateNormalToThicknessConverter" />
-    <local:BindingVisibilityConverter x:Key="BindingVisibilityConverter"/>
+    <local:BindingVisibilityConverterCollapsed x:Key="BindingVisibilityConverterCollapsed"/>
+    <local:BindingVisibilityConverterHidden x:Key="BindingVisibilityConverterHidden"/>
+
     <SolidColorBrush x:Key="Menu.Static.Background" Color="Transparent"/>
     <SolidColorBrush x:Key="SystemDefaultBackgroundBrush" Color="#FFE6E5E5"/>
+    <SolidColorBrush x:Key="SystemDefaultTitleBackgroundBrush" Color="#FFF3F3F3"/>
+    <SolidColorBrush x:Key="SystemDefaultContentBackgroundBrush" Color="#FFF9F9F9"/>
+    <SolidColorBrush x:Key="NavigationItemHoverAndSelectedBrush" Color="#FFE8E8E8"/>
+    <Thickness x:Key="MainWindowShadowMarginThickness">1</Thickness>
+    <Thickness x:Key="MainWindowResizeThickness">6</Thickness>
+    <!--<system:Double x:Key="MainWindowCaptionHeight">32</system:Double>-->
+    <SolidColorBrush x:Key="MainWindowBackground" Color="#BBFAFAFA" />
+    <SolidColorBrush x:Key="MainWindowBackgroundNoTransparent" Color="#FFFAFAFA" />
+    <SolidColorBrush x:Key="WindowTextForeground" Color="#FF0E0E0E" />
+    <SolidColorBrush x:Key="WindowTextForegroundAlternative" Color="#FF626262" />
+    <SolidColorBrush x:Key="CaptionTextHoverBorder" Color="#FF3D3D3D" />
+    <SolidColorBrush x:Key="CaptionButtonIconForeground" Color="#E50E0E0E" />
+    <SolidColorBrush x:Key="CaptionButtonHoverBackground" Color="#FFC2C2C2" />
+    <SolidColorBrush x:Key="CaptionButtonPressBackground" Color="#FF929292" />
+    <SolidColorBrush x:Key="CaptionCloseButtonHoverForeground" Color="#E5EFEFEF" />
+    <SolidColorBrush x:Key="CaptionCloseButtonHoverBackground" Color="#FFE81123" />
+    <SolidColorBrush x:Key="CaptionCloseButtonPressBackground" Color="#FFB5394B" />
+    <SolidColorBrush x:Key="CaptionBackground" Color="#BBDADADA" />
 
 
     <Style x:Key="MenuStyle" TargetType="{x:Type Menu}">
@@ -1091,23 +1111,6 @@
     </Style>
 
 
-
-    <Thickness x:Key="MainWindowShadowMarginThickness">1</Thickness>
-    <Thickness x:Key="MainWindowResizeThickness">6</Thickness>
-    <!--<system:Double x:Key="MainWindowCaptionHeight">32</system:Double>-->
-    <SolidColorBrush x:Key="MainWindowBackground" Color="#BBFAFAFA" />
-    <SolidColorBrush x:Key="MainWindowBackgroundNoTransparent" Color="#FFFAFAFA" />
-    <SolidColorBrush x:Key="WindowTextForeground" Color="#FF0E0E0E" />
-    <SolidColorBrush x:Key="WindowTextForegroundAlternative" Color="#FF626262" />
-    <SolidColorBrush x:Key="CaptionTextHoverBorder" Color="#FF3D3D3D" />
-    <SolidColorBrush x:Key="CaptionButtonIconForeground" Color="#E50E0E0E" />
-    <SolidColorBrush x:Key="CaptionButtonHoverBackground" Color="#44FFFFFF" />
-    <SolidColorBrush x:Key="CaptionButtonPressBackground" Color="#88FFFFFF" />
-    <SolidColorBrush x:Key="CaptionCloseButtonHoverForeground" Color="#E5EFEFEF" />
-    <SolidColorBrush x:Key="CaptionCloseButtonHoverBackground" Color="#FFE81123" />
-    <SolidColorBrush x:Key="CaptionCloseButtonPressBackground" Color="#FFB5394B" />
-    <SolidColorBrush x:Key="CaptionBackground" Color="#BBDADADA" />
-
     <Style x:Key="CaptionButtonBaseStyle" TargetType="{x:Type Button}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Cursor" Value="Hand" />
@@ -1205,10 +1208,11 @@
                                 <RowDefinition Height="32" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <DockPanel Grid.Row="0" Background="LightGray" Name="TitleDock">
+                            <DockPanel Grid.Row="0" Background="{StaticResource SystemDefaultTitleBackgroundBrush}" Name="TitleDock">
                                 <Button DockPanel.Dock="Left" x:Name="NavigationButton" Style="{StaticResource CaptionButtonStyle}"
-                                        Content="&#xE700;" FontFamily="Segoe MDL2 Assets" Visibility="{TemplateBinding IsNavigationButton,
-                                    Converter={StaticResource BindingVisibilityConverter}}"/>
+                                        Content="&#xE700;" FontFamily="Segoe MDL2 Assets"
+                                        Visibility="{TemplateBinding IsNavigationButton, Converter={StaticResource BindingVisibilityConverterCollapsed}}"
+                                        FontSize="16"/>
                                 <StackPanel DockPanel.Dock="Left" x:Name="DockLeftPanel"/>
                                 <Button DockPanel.Dock="Right" x:Name="CloseBtn" Style="{StaticResource CaptionCloseButtonStyle}"
                                         Content="&#xE894;" FontFamily="Segoe MDL2 Assets">
@@ -1258,7 +1262,7 @@
                                 <Grid x:Name="titleArea" Background="Transparent" DockPanel.Dock="Left">
                                     <TextBlock x:Name="titleAreaText" FontSize="12" Text="{TemplateBinding Title}"
                                    HorizontalAlignment="Left" TextTrimming="CharacterEllipsis"
-                                   VerticalAlignment="Center" Margin="5,0" />
+                                   VerticalAlignment="Center"/>
                                 </Grid>
                             </DockPanel>
                             <Grid Grid.Row="1" KeyboardNavigation.IsTabStop="False">
@@ -1267,12 +1271,6 @@
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <!--<StackPanel Grid.Column="0" Visibility="{Binding ElementName=NavigationButton,Path=Visibility}">
-                                        <local:NavigationViewItem Icon="&#xE727;" MenuText="节点参数设置" Margin="0,0,0,0" x:Name="FirstNavigationViewItem"/>
-                                        <local:NavigationViewItem Icon="&#xE934;" MenuText="内力设置" Margin="{Binding ElementName=FirstNavigationViewItem,Path=Margin}"/>
-                                        <local:NavigationViewItem Icon="&#xE713;" MenuText="验算设置" Margin="{Binding ElementName=FirstNavigationViewItem,Path=Margin}"/>
-                                        <local:NavigationViewItem Icon="&#xE736;" MenuText="计算书" Margin="{Binding ElementName=FirstNavigationViewItem,Path=Margin}"/>
-                                    </StackPanel>-->
                                     <ContentPresenter x:Name="MainContentPresenter" KeyboardNavigation.TabNavigation="Cycle" Grid.Column="1"/>
                                 </Grid>
                                 <local:MenuIsland x:Name="MenuDockIsland" Panel.ZIndex="-999"/>
@@ -1284,7 +1282,7 @@
         </Setter>
     </Style>
 
-    <Thickness x:Key="NavigationViewItemMargin">5</Thickness>
+    <Thickness x:Key="NavigationViewItemMargin">6</Thickness>
     <Style TargetType="{x:Type local:NavigationViewItem}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Template">
@@ -1292,28 +1290,24 @@
                 <ControlTemplate TargetType="{x:Type local:NavigationViewItem}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}" Padding="0,6,0,6">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="IconTB"
+                            BorderThickness="{TemplateBinding BorderThickness}" Margin="4" Padding="4" CornerRadius="6">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="IconTB"
                                        Text="{TemplateBinding Icon}" FontSize="{TemplateBinding IconSize}" Margin="{StaticResource NavigationViewItemMargin}"/>
-                            <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" x:Name="CommandTB"
-                                       Text="{TemplateBinding MenuText}" FontSize="{TemplateBinding MenuTextSize}" Margin="{StaticResource NavigationViewItemMargin}"/>
-                            <Grid Grid.Column="2"/>
-                            <Grid Grid.ColumnSpan="3" Name="Mask" Panel.ZIndex="-1"/>
-                        </Grid>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" x:Name="CommandTB"
+                                       Text="{TemplateBinding MenuText}" FontSize="{TemplateBinding MenuTextSize}" Margin="8,0,0,0" 
+                                       Visibility="{TemplateBinding MenuTextVisable,Converter={StaticResource BindingVisibilityConverterCollapsed}}">
+                            </TextBlock>
+                        </StackPanel>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="{DynamicResource CaptionTextHoverBorder}" />
-                            <Setter Property="Background" Value="{StaticResource CaptionBackground}" />
+                            <Setter Property="BorderBrush" Value="{StaticResource NavigationItemHoverAndSelectedBrush}" />
+                            <Setter Property="Background" Value="{StaticResource NavigationItemHoverAndSelectedBrush}" />
                         </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="Mask" Value="LightGray" />
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="BorderBrush" Value="{StaticResource NavigationItemHoverAndSelectedBrush}" />
+                            <Setter Property="Background" Value="{StaticResource NavigationItemHoverAndSelectedBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -1322,12 +1316,26 @@
     </Style>
 
     <Style TargetType="{x:Type local:NavigationViewItems}">
+        <Setter Property="BorderThickness" Value="0,0,0,0"/>
+        <Setter Property="BorderBrush" Value="LightGray"/>
+        <Setter Property="Background" Value="{StaticResource SystemDefaultTitleBackgroundBrush}"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:NavigationViewItems}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
+                        <ScrollViewer Padding="{TemplateBinding Padding}" x:Name="MainScrollViewer">
+                            <ScrollViewer.RenderTransform>
+                                <ScaleTransform x:Name="ScrollViewerScaleTransform" CenterX="0"/>
+                            </ScrollViewer.RenderTransform>
+                            <Grid>
+                                <Rectangle Grid.Column="0" Width="3" Height="16" Fill="#FF7E4995" RadiusX="2" RadiusY="2" x:Name="statusBar" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,14,0,0" Panel.ZIndex="2"/>
+                                <ItemsPresenter Grid.Column="0" Grid.ColumnSpan="2" Tag="Menu"/>
+                            </Grid>
+                        </ScrollViewer>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

@@ -5,14 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfLibrary.Util;
+using static WpfLibrary.Extension.SystemExtension;
 
 namespace WpfLibrary
 {
@@ -99,17 +103,10 @@ namespace WpfLibrary
             DependencyProperty.Register("IsNavigationButton", typeof(bool), typeof(NoWindow), new PropertyMetadata(false));
 
         /// <summary>
-        /// 菜单栏按钮
+        /// 导航栏按钮点击事件
         /// </summary>
-        public NavigationViewItems MenuItems
-        {
-            get { return (NavigationViewItems)GetValue(MenuItemsProperty); }
-            set { SetValue(MenuItemsProperty, value); }
-        }
-        //默认值需要时线程安全的,但NavigationViewItems不是
-        public static readonly DependencyProperty MenuItemsProperty =
-            DependencyProperty.Register("MenuItems", typeof(NavigationViewItems), typeof(NoWindow), new PropertyMetadata(new NavigationViewItems()));
-
+        public event RoutedEventHandler NavigationButtonClick;
+        public static readonly RoutedEvent NavigationButtonClickEvent;
 
         /// <summary>
         /// 静态构造函数
@@ -117,6 +114,7 @@ namespace WpfLibrary
         static NoWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NoWindow), new FrameworkPropertyMetadata(typeof(NoWindow)));
+            NavigationButtonClickEvent = EventManager.RegisterRoutedEvent("NavigationButtonClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ButtonBase));
         }
 
         /// <summary>
@@ -124,17 +122,30 @@ namespace WpfLibrary
         /// </summary>
         public NoWindow()
         {
+
             StateChanged += NoWindow_StateChanged;
             Loaded += NoWindow_Loaded;
         }
 
         private void NoWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            ///圆角
+            IntPtr hWnd = new WindowInteropHelper(GetWindow(this)).EnsureHandle();
+            var attribute = DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE;
+            var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
+            DwmSetWindowAttribute(hWnd, attribute, ref preference, sizeof(uint));
+
+
             _mainBorder = (Border)Template.FindName("MainBorder", this);
             _layoutRoot = _mainBorder.Child as Grid;
             _dockPanel = (DockPanel)Template.FindName("TitleDock", this);
 
             _navigationButton = (Button)Template.FindName("NavigationButton", this);
+            _navigationButton.Click += ((a, b) =>
+            {
+                NavigationButtonClick.Invoke(a, b);
+            });
+
             _closeButton = (Button)Template.FindName("CloseBtn", this);
             _closeButton.Click += ((a, b) =>
             {

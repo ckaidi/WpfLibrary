@@ -4,18 +4,17 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows;
+using System.Windows.Data;
 
 namespace WpfLibrary
 {
-
     /// <summary>
     /// 将可视和布尔值绑定起来
     /// true为Visible
-    /// false为Collapsed
+    /// false为Hidden
     /// </summary>
-    public class BindingVisibilityConverter : IValueConverter
+    public class BindingVisibilityConverterHidden : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -26,7 +25,7 @@ namespace WpfLibrary
                     return Visibility.Visible;
                 }
             }
-            return Visibility.Collapsed;
+            return Visibility.Hidden;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -35,7 +34,7 @@ namespace WpfLibrary
                 switch (visibility)
                 {
                     case Visibility.Visible: return true;
-                    case Visibility.Collapsed: return false;
+                    case Visibility.Hidden: return false;
                     default: return false;
                 }
             return false;

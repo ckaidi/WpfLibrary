@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -19,8 +20,18 @@ namespace WpfLibrary
     /// <summary>
     /// 导航栏菜单按钮
     /// </summary>
-    public class NavigationViewItem : ButtonBase
+    public class NavigationViewItem : ListBoxItem
     {
+        /// <summary>
+        /// 所属的NavigationViewItems
+        /// </summary>
+        private NavigationViewItems _parentNavigation
+        {
+            get
+            {
+                return ItemsControl.ItemsControlFromItemContainer(this) as NavigationViewItems;
+            }
+        }
         /// <summary>
         /// Segoe MDL2 Assets的icon
         /// </summary>
@@ -66,6 +77,17 @@ namespace WpfLibrary
             DependencyProperty.Register("MenuTextSize", typeof(double), typeof(NavigationViewItem), new PropertyMetadata(14.0));//加一个.0不然会引发类型不匹配的错误
 
         /// <summary>
+        /// 菜单按钮是否可见
+        /// </summary>
+        internal bool MenuTextVisable
+        {
+            get { return (bool)GetValue(MenuTextVisableProperty); }
+            set { SetValue(MenuTextVisableProperty, value); }
+        }
+        internal static readonly DependencyProperty MenuTextVisableProperty =
+            DependencyProperty.Register("MenuTextVisable", typeof(bool), typeof(NavigationViewItem), new PropertyMetadata(true));
+
+        /// <summary>
         /// 图标textblock
         /// </summary>
         public TextBlock IconTextBlock { get; private set; }
@@ -89,7 +111,6 @@ namespace WpfLibrary
         public NavigationViewItem()
         {
             this.Loaded += NavigationViewItem_Loaded;
-            this.MouseDown += NavigationViewItem_MouseDown;
         }
 
         /// <summary>
@@ -103,9 +124,22 @@ namespace WpfLibrary
             CommandTextBlock = (TextBlock)Template.FindName("CommandTB", this);
         }
 
-        private void NavigationViewItem_MouseDown(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// 鼠标左键点击时设置为选中
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            e.Handled = true;
+
+            var parent = _parentNavigation;
+
+            if (parent != null)
+            {
+                parent.NotifyNavigationViewMouseUp(this);
+            }
+
+            base.OnMouseLeftButtonUp(e);
         }
     }
 }
