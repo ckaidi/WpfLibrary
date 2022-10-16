@@ -32,6 +32,7 @@ namespace WpfLibrary
                 return ItemsControl.ItemsControlFromItemContainer(this) as NavigationViewItems;
             }
         }
+
         /// <summary>
         /// Segoe MDL2 Assets的icon
         /// </summary>

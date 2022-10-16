@@ -51,6 +51,7 @@
             </Border.Clip>
             <Rectangle Width="{Binding ElementName=MenuDock,Path=ActualWidth}" Height="{Binding ElementName=MenuDock,Path=ActualHeight}" Fill="#FFE0E0E0" Opacity=".9" />
         </Border>
-        <Grid Grid.Row="1" Background="Gray" Opacity=".5" Visibility="{Binding ElementName=MenuDock,Path=Visibility}"></Grid>
+        <Grid Grid.Row="1" Background="Gray" Opacity=".5" Visibility="{Binding ElementName=MenuDock,Path=Visibility}">
+        </Grid>
     </Grid>
 </UserControl>

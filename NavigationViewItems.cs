@@ -25,7 +25,7 @@ namespace WpfLibrary
     /// 导航栏集合
     /// </summary>
     [StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(NavigationViewItem))]
-    public class NavigationViewItems : Selector
+    public class NavigationViewItems : ComboBox
     {
         /// <summary>
         /// 菜单是否是收起的状态
@@ -52,7 +52,7 @@ namespace WpfLibrary
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NavigationViewItems), new FrameworkPropertyMetadata(typeof(NavigationViewItems)));
             var itemsControlType = typeof(ItemsControl);
             NewItemInfo = itemsControlType.GetMethod("NewItemInfo", BindingFlags.Instance | BindingFlags.NonPublic);
-            var selectorType = typeof(Selector);
+            var selectorType = typeof(ComboBox);
             SelectionChange = selectorType.GetProperty("SelectionChange", BindingFlags.Instance | BindingFlags.NonPublic);
             SelectJustThisItem = SelectionChange.PropertyType.GetMethod("SelectJustThisItem", BindingFlags.Instance | BindingFlags.NonPublic);
         }
