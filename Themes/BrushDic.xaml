@@ -7,6 +7,7 @@
     <local:BindingVisibilityConverterHiddenConverter x:Key="BindingVisibilityConverterHidden"/>
     <local:BindingCornerRadiusToThickness x:Key="BindingCornerRadiusToThickness"/>
     <local:BindingTextConverter x:Key="BindingTextConverter"/>
+    <local:BindingDoubleWithForumlaConverter x:Key="BindingDoubleWithForumlaConverter"/>
 
     <SolidColorBrush x:Key="StatusBarFillColor" Color="#FF7E4995"/>
     <SolidColorBrush x:Key="ComboBox.Static.Background" Color="#FFF3F3F3"/>

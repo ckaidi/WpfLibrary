@@ -121,6 +121,7 @@
       <DependentUpon>ComboBoxGroup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\BindingCornerRadiusToThickness.cs" />
+    <Compile Include="Converter\BindingDoubleWithForumlaConverter.cs" />
     <Compile Include="Converter\BindingTextConverter.cs" />
     <Compile Include="Converter\BindingVisibilityConverterCollapsedConverter.cs" />
     <Compile Include="Converter\BindingVisibilityConverterHiddenConverter.cs" />
