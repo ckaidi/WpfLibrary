@@ -16,8 +16,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Border Background="{StaticResource ControlsInPageBackground}" CornerRadius="9" Margin="{Binding ElementName=mainControl,Path=Margin}"
-            BorderThickness="1" BorderBrush="LightGray">
-        <Grid Margin="18">
+            BorderThickness="{Binding ElementName=mainControl,Path=BorderThickness}" BorderBrush="LightGray">
+        <Grid Margin="{Binding ElementName=mainControl,Path=InnerMargin}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>

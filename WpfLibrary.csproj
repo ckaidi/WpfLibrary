@@ -109,11 +109,13 @@
       <DependentUpon>ComboBoxGroup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\BindingCornerRadiusToThickness.cs" />
+    <Compile Include="Converter\BindingTextConverter.cs" />
     <Compile Include="Converter\BindingVisibilityConverterCollapsedConverter.cs" />
     <Compile Include="Converter\BindingVisibilityConverterHiddenConverter.cs" />
     <Compile Include="Converter\WindowStateMaximizedToThicknessConverter.cs" />
     <Compile Include="Converter\WindowStateNormalToThicknessConverter.cs" />
     <Compile Include="Extension\SystemExtension.cs" />
+    <Compile Include="GroupPanel.cs" />
     <Compile Include="MenuIsland.xaml.cs">
       <DependentUpon>MenuIsland.xaml</DependentUpon>
     </Compile>
@@ -144,6 +146,7 @@
       <DependentUpon>TextBoxGroup.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToggleButton.cs" />
+    <Compile Include="ToggleSwitch.cs" />
     <Compile Include="Util\DWMWINDOWATTRIBUTE.cs" />
     <Compile Include="Util\DWM_WINDOW_CORNER_PREFERENCE.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

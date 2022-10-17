@@ -16,9 +16,9 @@ using System.Windows.Shapes;
 namespace WpfLibrary
 {
     /// <summary>
-    /// Interaction logic for TextBoxGroup.xaml
+    /// 代替wpf的groupbox
     /// </summary>
-    public partial class TextBoxGroup : UserControl
+    public class GroupPanel : ItemsControl
     {
         /// <summary>
         /// 标签文字
@@ -29,25 +29,14 @@ namespace WpfLibrary
             set { SetValue(LabelProperty, value); }
         }
         public static readonly DependencyProperty LabelProperty =
-            DependencyProperty.Register("Label", typeof(string), typeof(TextBoxGroup), new PropertyMetadata("Label"));
+            DependencyProperty.Register("Label", typeof(string), typeof(GroupPanel), new PropertyMetadata("Label"));
 
         /// <summary>
-        /// 内圈偏移
+        /// 静态构造
         /// </summary>
-        public Thickness InnerMargin
+        static GroupPanel()
         {
-            get { return (Thickness)GetValue(InnerMarginProperty); }
-            set { SetValue(InnerMarginProperty, value); }
-        }
-        public static readonly DependencyProperty InnerMarginProperty =
-            DependencyProperty.Register("InnerMargin", typeof(Thickness), typeof(TextBoxGroup), new PropertyMetadata(new Thickness(18.0)));
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        public TextBoxGroup()
-        {
-            InitializeComponent();
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(GroupPanel), new FrameworkPropertyMetadata(typeof(GroupPanel)));
         }
     }
 }
