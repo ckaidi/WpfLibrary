@@ -5,28 +5,8 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/BrushDic.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/ToggleButtonTemplete.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/ToggleSwitch.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-
-    <SolidColorBrush x:Key="Menu.Static.Background" Color="Transparent"/>
-    <SolidColorBrush x:Key="SystemDefaultBackgroundBrush" Color="#FFE6E5E5"/>
-    <SolidColorBrush x:Key="SystemDefaultTitleBackgroundBrush" Color="#FFF3F3F3"/>
-    <SolidColorBrush x:Key="SystemDefaultContentBackgroundBrush" Color="#FFF9F9F9"/>
-    <SolidColorBrush x:Key="NavigationItemHoverAndSelectedBrush" Color="#FFE8E8E8"/>
-    <Thickness x:Key="MainWindowShadowMarginThickness">1</Thickness>
-    <Thickness x:Key="MainWindowResizeThickness">6</Thickness>
-    <!--<system:Double x:Key="MainWindowCaptionHeight">32</system:Double>-->
-    <SolidColorBrush x:Key="MainWindowBackground" Color="#BBFAFAFA" />
-    <SolidColorBrush x:Key="MainWindowBackgroundNoTransparent" Color="#FFFAFAFA" />
-    <SolidColorBrush x:Key="WindowTextForeground" Color="#FF0E0E0E" />
-    <SolidColorBrush x:Key="WindowTextForegroundAlternative" Color="#FF626262" />
-    <SolidColorBrush x:Key="CaptionTextHoverBorder" Color="#FF3D3D3D" />
-    <SolidColorBrush x:Key="CaptionButtonIconForeground" Color="#E50E0E0E" />
-    <SolidColorBrush x:Key="CaptionButtonHoverBackground" Color="#FFC2C2C2" />
-    <SolidColorBrush x:Key="CaptionButtonPressBackground" Color="#FF929292" />
-    <SolidColorBrush x:Key="CaptionCloseButtonHoverForeground" Color="#E5EFEFEF" />
-    <SolidColorBrush x:Key="CaptionCloseButtonHoverBackground" Color="#FFE81123" />
-    <SolidColorBrush x:Key="CaptionCloseButtonPressBackground" Color="#FFB5394B" />
-    <SolidColorBrush x:Key="CaptionBackground" Color="#BBDADADA" />
 
 
     <Style x:Key="MenuStyle" TargetType="{x:Type Menu}">
@@ -70,6 +50,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+
     <Style x:Key="HorizontalScrollBarPageButton"
            TargetType="{x:Type RepeatButton}">
         <Setter Property="OverridesDefaultStyle"
@@ -327,15 +308,6 @@
     </Style>
 
     <!--MenuItem-->
-    <SolidColorBrush x:Key="Menu.Static.Border" Color="#FF999999"/>
-    <SolidColorBrush x:Key="Menu.Static.Foreground" Color="#FF212121"/>
-    <SolidColorBrush x:Key="Menu.Static.Separator" Color="#FFD7D7D7"/>
-    <SolidColorBrush x:Key="Menu.Disabled.Foreground" Color="#FF707070"/>
-    <SolidColorBrush x:Key="MenuItem.Selected.Border" Color="Transparent"/>
-    <SolidColorBrush x:Key="MenuItem.Highlight.Background" Color="#44FFFFFF"/>
-    <SolidColorBrush x:Key="MenuItem.Highlight.Border" Color="Transparent"/>
-    <SolidColorBrush x:Key="MenuItem.Highlight.Disabled.Background" Color="#0A000000"/>
-    <SolidColorBrush x:Key="MenuItem.Highlight.Disabled.Border" Color="#21000000"/>
     <MenuScrollingVisibilityConverter x:Key="MenuScrollingVisibilityConverter"/>
     <Geometry x:Key="DownArrow">M 0,0 L 3.5,4 L 7,0 Z</Geometry>
     <Geometry x:Key="UpArrow">M 0,4 L 3.5,0 L 7,4 Z</Geometry>
@@ -353,7 +325,8 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="{ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}" BasedOn="{x:Null}" TargetType="{x:Type ScrollViewer}">
+    <Style x:Key="{ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}" BasedOn="{x:Null}" 
+           TargetType="{x:Type ScrollViewer}">
         <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="Template">
@@ -399,7 +372,8 @@
         </Setter>
     </Style>
     <ControlTemplate x:Key="{ComponentResourceKey ResourceId=TopLevelItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
-        <Border x:Name="templateRoot" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+        <Border x:Name="templateRoot" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
             <Grid VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -437,7 +411,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <ControlTemplate x:Key="{ComponentResourceKey ResourceId=TopLevelHeaderTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
-        <Border x:Name="templateRoot" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+        <Border x:Name="templateRoot" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
             <Grid VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -487,7 +462,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <ControlTemplate x:Key="{ComponentResourceKey ResourceId=SubmenuItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
-        <Border x:Name="templateRoot" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Height="22" SnapsToDevicePixels="true">
+        <Border x:Name="templateRoot" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}" Height="22" SnapsToDevicePixels="true">
             <Grid Margin="-1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="22" SharedSizeGroup="MenuItemIconColumnGroup" Width="Auto"/>
@@ -532,7 +508,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <ControlTemplate x:Key="{ComponentResourceKey ResourceId=SubmenuHeaderTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
-        <Border x:Name="templateRoot" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Height="22" SnapsToDevicePixels="true">
+        <Border x:Name="templateRoot" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}" Height="22" SnapsToDevicePixels="true">
             <Grid Margin="-1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="22" SharedSizeGroup="MenuItemIconColumnGroup" Width="Auto"/>
@@ -894,14 +871,6 @@
     </Style>
 
     <!--Button-->
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Stroke" Color="#FF818181"/>
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Fill" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Stroke" Color="#FF27C7F7"/>
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Fill" Color="#FFCCEEFB"/>
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Stroke" Color="#FF262626"/>
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Fill" Color="#FF595959"/>
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Stroke" Color="#FF1CC4F7"/>
-    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Fill" Color="#FF82DFFB"/>
     <PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
     <Style x:Key="FocusVisual">
         <Setter Property="Control.Template">
@@ -912,15 +881,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <SolidColorBrush x:Key="Button.Static.Background" Color="#FF005A9E"/>
-    <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
-    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FF026CBB"/>
-    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FF215C88"/>
-    <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
-    <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
-    <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-    <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
     <Style TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
         <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -1279,7 +1239,6 @@
         </Setter>
     </Style>
 
-    <Thickness x:Key="NavigationViewItemMargin">6</Thickness>
     <Style TargetType="{x:Type local:NavigationViewItem}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Template">
@@ -1374,16 +1333,29 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type local:ToggleSwitch}">
+    <!--<Style TargetType="{x:Type local:ToggleSwitch}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ToggleSwitch}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                    <Border Background="{StaticResource ToggleSwitch.False.Background}" Width="36" Height="16" CornerRadius="8" SnapsToDevicePixels="False"
+                            BorderBrush="Gray"
+                            BorderThickness="1">
+                        <Rectangle Fill="{StaticResource ToggleSwitchFalse}" RadiusX="5" RadiusY="5" Height="10" Width="10" HorizontalAlignment="Left" Margin="2,0,0,0" x:Name="mainRect">
+                            <Rectangle.Triggers>
+                                <EventTrigger RoutedEvent="Rectangle.MouseLeftButtonDown">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Rectangle.Width" From="10" To="16" Duration="0:0:5"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Rectangle.Triggers>
+                        </Rectangle>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
+
+
 </ResourceDictionary>

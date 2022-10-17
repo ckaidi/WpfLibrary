@@ -25,4 +25,58 @@
     <SolidColorBrush x:Key="ComboBox.Pressed.Border" Color="Gray"/>
     <SolidColorBrush x:Key="Page.Background" Color="#FFF9F9F9"/>
     <SolidColorBrush x:Key="ControlsInPageBackground" Color="#FFFFFFFF"/>
+
+    <SolidColorBrush x:Key="Menu.Static.Background" Color="Transparent"/>
+    <SolidColorBrush x:Key="SystemDefaultBackgroundBrush" Color="#FFE6E5E5"/>
+    <SolidColorBrush x:Key="SystemDefaultTitleBackgroundBrush" Color="#FFF3F3F3"/>
+    <SolidColorBrush x:Key="SystemDefaultContentBackgroundBrush" Color="#FFF9F9F9"/>
+    <SolidColorBrush x:Key="NavigationItemHoverAndSelectedBrush" Color="#FFE8E8E8"/>
+    <Thickness x:Key="MainWindowShadowMarginThickness">1</Thickness>
+    <Thickness x:Key="MainWindowResizeThickness">6</Thickness>
+    <SolidColorBrush x:Key="MainWindowBackground" Color="#BBFAFAFA" />
+    <SolidColorBrush x:Key="MainWindowBackgroundNoTransparent" Color="#FFFAFAFA" />
+    <SolidColorBrush x:Key="WindowTextForeground" Color="#FF0E0E0E" />
+    <SolidColorBrush x:Key="WindowTextForegroundAlternative" Color="#FF626262" />
+    <SolidColorBrush x:Key="CaptionTextHoverBorder" Color="#FF3D3D3D" />
+    <SolidColorBrush x:Key="CaptionButtonIconForeground" Color="#E50E0E0E" />
+    <SolidColorBrush x:Key="CaptionButtonHoverBackground" Color="#FFC2C2C2" />
+    <SolidColorBrush x:Key="CaptionButtonPressBackground" Color="#FF929292" />
+    <SolidColorBrush x:Key="CaptionCloseButtonHoverForeground" Color="#E5EFEFEF" />
+    <SolidColorBrush x:Key="CaptionCloseButtonHoverBackground" Color="#FFE81123" />
+    <SolidColorBrush x:Key="CaptionCloseButtonPressBackground" Color="#FFB5394B" />
+    <SolidColorBrush x:Key="CaptionBackground" Color="#BBDADADA" />
+    
+    <SolidColorBrush x:Key="Menu.Static.Border" Color="#FF999999"/>
+    <SolidColorBrush x:Key="Menu.Static.Foreground" Color="#FF212121"/>
+    <SolidColorBrush x:Key="Menu.Static.Separator" Color="#FFD7D7D7"/>
+    <SolidColorBrush x:Key="Menu.Disabled.Foreground" Color="#FF707070"/>
+    <SolidColorBrush x:Key="MenuItem.Selected.Border" Color="Transparent"/>
+    <SolidColorBrush x:Key="MenuItem.Highlight.Background" Color="#44FFFFFF"/>
+    <SolidColorBrush x:Key="MenuItem.Highlight.Border" Color="Transparent"/>
+    <SolidColorBrush x:Key="MenuItem.Highlight.Disabled.Background" Color="#0A000000"/>
+    <SolidColorBrush x:Key="MenuItem.Highlight.Disabled.Border" Color="#21000000"/>
+
+    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Stroke" Color="#FF818181"/>
+    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Fill" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Stroke" Color="#FF27C7F7"/>
+    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Fill" Color="#FFCCEEFB"/>
+    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Stroke" Color="#FF262626"/>
+    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Fill" Color="#FF595959"/>
+    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Stroke" Color="#FF1CC4F7"/>
+    <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Fill" Color="#FF82DFFB"/>
+
+    <SolidColorBrush x:Key="Button.Static.Background" Color="#FF005A9E"/>
+    <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FF026CBB"/>
+    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FF215C88"/>
+    <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+    <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+    <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+    <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+
+    <SolidColorBrush x:Key="ToggleSwitchFalse" Color="#FF5A5A5A"/>
+    <SolidColorBrush x:Key="ToggleSwitch.False.Background" Color="#FFEDEDED"/>
+
+    <Thickness x:Key="NavigationViewItemMargin">6</Thickness>
 </ResourceDictionary>
