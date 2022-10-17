@@ -66,11 +66,11 @@
     <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Stroke" Color="#FF1CC4F7"/>
     <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Fill" Color="#FF82DFFB"/>
 
-    <SolidColorBrush x:Key="Button.Static.Background" Color="#FF005A9E"/>
+    <SolidColorBrush x:Key="Button.Static.Background" Color="#FF7E4995"/>
     <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
-    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FF026CBB"/>
+    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#DD7E4995"/>
     <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FF215C88"/>
+    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#BB7E4995"/>
     <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
     <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>

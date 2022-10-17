@@ -1250,9 +1250,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:NavigationViewItem}">
                     <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderBrush="{TemplateBinding BorderBrush}" VerticalAlignment="{TemplateBinding VerticalAlignment}"
                             BorderThickness="{TemplateBinding BorderThickness}" Margin="4" Padding="4" CornerRadius="6">
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="{TemplateBinding VerticalAlignment}">
                             <TextBlock FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="IconTB"
                                        Text="{TemplateBinding Icon}" FontSize="{TemplateBinding IconSize}" Margin="{StaticResource NavigationViewItemMargin}"/>
                             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" x:Name="CommandTB"
@@ -1293,7 +1293,8 @@
                                 <ScaleTransform x:Name="ScrollViewerScaleTransform" CenterX="0"/>
                             </ScrollViewer.RenderTransform>
                             <Grid>
-                                <Rectangle Grid.Column="0" Width="3" Height="16" Fill="{StaticResource StatusBarFillColor}" RadiusX="2" RadiusY="2" x:Name="statusBar" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,14,0,0" Panel.ZIndex="2"/>
+                                <Rectangle Grid.Column="0" Width="3" Height="16" Fill="{StaticResource StatusBarFillColor}" RadiusX="2" RadiusY="2" x:Name="statusBar" 
+                                           VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,14,0,0" Panel.ZIndex="2"/>
                                 <ItemsPresenter Grid.Column="0" Grid.ColumnSpan="2" Tag="Menu"/>
                             </Grid>
                         </ScrollViewer>
