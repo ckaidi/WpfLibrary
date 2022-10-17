@@ -5,10 +5,11 @@
     <local:WindowStateNormalToThicknessConverter x:Key="WindowStateNormalToThicknessConverter" />
     <local:BindingVisibilityConverterCollapsedConverter x:Key="BindingVisibilityConverterCollapsed"/>
     <local:BindingVisibilityConverterHiddenConverter x:Key="BindingVisibilityConverterHidden"/>
+    <local:BindingCornerRadiusToThickness x:Key="BindingCornerRadiusToThickness"/>
 
     <SolidColorBrush x:Key="StatusBarFillColor" Color="#FF7E4995"/>
     <SolidColorBrush x:Key="ComboBox.Static.Background" Color="#FFF3F3F3"/>
-    <SolidColorBrush x:Key="ComboBox.Static.Border" Color="#FFF3F3F3"/>
+    <SolidColorBrush x:Key="ComboBox.Static.Border" Color="LightGray"/>
     <SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="#FF606060"/>
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Background" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Border" Color="#FFABADB3"/>
@@ -18,5 +19,9 @@
     <SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="#FFE6E6E6"/>
     <SolidColorBrush x:Key="ComboBox.MouseOver.Glyph" Color="#FF000000"/>
     <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Border" Color="#FF7EB4EA"/>
+    <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Border" Color="#FFF3F3F3"/>
+    <SolidColorBrush x:Key="ComboBox.Pressed.Background" Color="#FFE6E6E6"/>
+    <SolidColorBrush x:Key="ComboBox.Pressed.Border" Color="Gray"/>
+    <SolidColorBrush x:Key="Page.Background" Color="#FFF9F9F9"/>
+    <SolidColorBrush x:Key="ControlsInPageBackground" Color="#FFFFFFFF"/>
 </ResourceDictionary>

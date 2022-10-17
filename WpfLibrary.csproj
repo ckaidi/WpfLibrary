@@ -51,6 +51,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ComboBoxGroup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MenuIsland.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -68,6 +72,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Style\ComboBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\PageStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\TextBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextBoxGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -89,6 +105,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComboBoxGroup.xaml.cs">
+      <DependentUpon>ComboBoxGroup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\BindingCornerRadiusToThickness.cs" />
     <Compile Include="Converter\BindingVisibilityConverterCollapsedConverter.cs" />
     <Compile Include="Converter\BindingVisibilityConverterHiddenConverter.cs" />
     <Compile Include="Converter\WindowStateMaximizedToThicknessConverter.cs" />
@@ -103,6 +123,7 @@
     <Compile Include="NavigationViewItem.cs" />
     <Compile Include="NavigationViewItems.cs" />
     <Compile Include="NoWindow.cs" />
+    <Compile Include="Page.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -118,6 +139,9 @@
     </Compile>
     <Compile Include="SearchControl.xaml.cs">
       <DependentUpon>SearchControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TextBoxGroup.xaml.cs">
+      <DependentUpon>TextBoxGroup.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToggleButton.cs" />
     <Compile Include="Util\DWMWINDOWATTRIBUTE.cs" />

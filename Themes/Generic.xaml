@@ -5,7 +5,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/BrushDic.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/ToggleButtonTemplete.xaml"/>
-        <ResourceDictionary Source="/WpfLibrary;component/Themes/BrushDic.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <SolidColorBrush x:Key="Menu.Static.Background" Color="Transparent"/>
@@ -1342,5 +1341,15 @@
 
     <Style TargetType="{x:Type local:ToggleButton}">
         <Setter Property="Template" Value="{StaticResource ToggleButtonTemplate}"/>
+    </Style>
+
+    <Style TargetType="{x:Type local:Page}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:Page}">
+                    <Grid/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>
