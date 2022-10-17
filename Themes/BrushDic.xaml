@@ -3,10 +3,9 @@
                     xmlns:local="clr-namespace:WpfLibrary">
     <local:WindowStateMaximizedToThicknessConverter x:Key="WindowStateMaximizedToThicknessConverter" />
     <local:WindowStateNormalToThicknessConverter x:Key="WindowStateNormalToThicknessConverter" />
-    <local:BindingVisibilityConverterCollapsed x:Key="BindingVisibilityConverterCollapsed"/>
-    <local:BindingVisibilityConverterHidden x:Key="BindingVisibilityConverterHidden"/>
-    
-    
+    <local:BindingVisibilityConverterCollapsedConverter x:Key="BindingVisibilityConverterCollapsed"/>
+    <local:BindingVisibilityConverterHiddenConverter x:Key="BindingVisibilityConverterHidden"/>
+
     <SolidColorBrush x:Key="StatusBarFillColor" Color="#FF7E4995"/>
     <SolidColorBrush x:Key="ComboBox.Static.Background" Color="#FFF3F3F3"/>
     <SolidColorBrush x:Key="ComboBox.Static.Border" Color="#FFF3F3F3"/>

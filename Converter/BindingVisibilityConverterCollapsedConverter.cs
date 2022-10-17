@@ -15,7 +15,7 @@ namespace WpfLibrary
     /// true为Visible
     /// false为Collapsed
     /// </summary>
-    public class BindingVisibilityConverterCollapsed : IValueConverter
+    public class BindingVisibilityConverterCollapsedConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
