@@ -8,6 +8,8 @@
         <ResourceDictionary Source="/WpfLibrary;component/Themes/GroupControlTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/TextBoxGroupTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/ToggleSwitchTemplete.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/ComboBoxGroupTemplete.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/PropertyPanelTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/ToggleSwitchGroupTemplete.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 

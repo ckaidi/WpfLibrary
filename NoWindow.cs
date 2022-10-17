@@ -122,7 +122,6 @@ namespace WpfLibrary
         /// </summary>
         public NoWindow()
         {
-
             StateChanged += NoWindow_StateChanged;
             Loaded += NoWindow_Loaded;
         }
