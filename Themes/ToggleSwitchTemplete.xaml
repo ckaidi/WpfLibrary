@@ -17,7 +17,7 @@
             <Setter.Value>
                 <!--控件模板-->
                 <ControlTemplate TargetType="{x:Type local:ToggleSwitch}">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
                         <Viewbox Stretch="Uniform"  VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Border x:Name="border" Width="42" Height="20" Background="{StaticResource ToggleSwitch.False.Background}" 
                                     SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="Gray" CornerRadius="10">

@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WpfLibrary">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/BrushDic.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="{x:Type local:ToggleSwitchGroup}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:ToggleSwitchGroup}">
+                    <local:GroupControl Label="{TemplateBinding Label}" InnerMargin="{TemplateBinding InnerMargin}">
+                        <local:ToggleSwitch  Grid.Column="1" Width="240" HorizontalAlignment="Right" x:Name="MainComboBox"
+                                  VerticalAlignment="Center" VerticalContentAlignment="Center" IsHasText="{TemplateBinding IsHasText}"/>
+                    </local:GroupControl>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

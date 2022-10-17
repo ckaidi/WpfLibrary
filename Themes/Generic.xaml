@@ -5,7 +5,10 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/BrushDic.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/ToggleButtonTemplete.xaml"/>
-        <ResourceDictionary Source="/WpfLibrary;component/Themes/ToggleSwitch.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/GroupControlTemplete.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/TextBoxGroupTemplete.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/ToggleSwitchTemplete.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/ToggleSwitchGroupTemplete.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 
@@ -1332,30 +1335,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <!--<Style TargetType="{x:Type local:ToggleSwitch}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:ToggleSwitch}">
-                    <Border Background="{StaticResource ToggleSwitch.False.Background}" Width="36" Height="16" CornerRadius="8" SnapsToDevicePixels="False"
-                            BorderBrush="Gray"
-                            BorderThickness="1">
-                        <Rectangle Fill="{StaticResource ToggleSwitchFalse}" RadiusX="5" RadiusY="5" Height="10" Width="10" HorizontalAlignment="Left" Margin="2,0,0,0" x:Name="mainRect">
-                            <Rectangle.Triggers>
-                                <EventTrigger RoutedEvent="Rectangle.MouseLeftButtonDown">
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Rectangle.Width" From="10" To="16" Duration="0:0:5"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                            </Rectangle.Triggers>
-                        </Rectangle>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>-->
-
-
 </ResourceDictionary>
