@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,22 @@ namespace WpfLibrary
         }
         public static readonly DependencyProperty IsHasTextProperty =
             DependencyProperty.Register("IsHasText", typeof(bool), typeof(ToggleSwitchGroup), new PropertyMetadata(true));
+
+        /// <summary>
+        /// ComboBox IsChecked
+        /// </summary>
+        [Bindable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool IsChecked
+        {
+            get { return (bool)GetValue(IsCheckedProperty); }
+            set { SetValue(IsCheckedProperty, value); }
+        }
+        public static readonly DependencyProperty IsCheckedProperty =
+                DependencyProperty.Register(
+                        "IsChecked",
+                        typeof(bool),
+                        typeof(ToggleSwitchGroup), new PropertyMetadata(false));
 
         /// <summary>
         /// 静态构造函数

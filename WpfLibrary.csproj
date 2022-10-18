@@ -123,8 +123,11 @@
   <ItemGroup>
     <Compile Include="ComboBoxGroup.cs" />
     <Compile Include="Converter\BindingCornerRadiusToThickness.cs" />
+    <Compile Include="Converter\BindingDescriptionConverter.cs" />
     <Compile Include="Converter\BindingDoubleWithForumlaConverter.cs" />
+    <Compile Include="Converter\BindingListDescriptionConverter.cs" />
     <Compile Include="Converter\BindingTextConverter.cs" />
+    <Compile Include="Converter\BindingValueToAbsConverter.cs" />
     <Compile Include="Converter\BindingVisibilityConverterCollapsedConverter.cs" />
     <Compile Include="Converter\BindingVisibilityConverterHiddenConverter.cs" />
     <Compile Include="Converter\WindowStateMaximizedToThicknessConverter.cs" />

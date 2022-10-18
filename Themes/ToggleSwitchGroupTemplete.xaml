@@ -11,6 +11,7 @@
                 <ControlTemplate TargetType="{x:Type local:ToggleSwitchGroup}">
                     <local:GroupControl Label="{TemplateBinding Label}" InnerMargin="{TemplateBinding InnerMargin}">
                         <local:ToggleSwitch  Grid.Column="1" Width="240" HorizontalAlignment="Right" x:Name="MainComboBox"
+                                             IsChecked="{TemplateBinding IsChecked}"
                                   VerticalAlignment="Center" VerticalContentAlignment="Center" IsHasText="{TemplateBinding IsHasText}"/>
                     </local:GroupControl>
                 </ControlTemplate>

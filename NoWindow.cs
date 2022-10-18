@@ -123,58 +123,57 @@ namespace WpfLibrary
         public NoWindow()
         {
             StateChanged += NoWindow_StateChanged;
-            Loaded += NoWindow_Loaded;
         }
 
-        private void NoWindow_Loaded(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 当控件加载模板时
+        /// </summary>
+        public override void OnApplyTemplate()
         {
-            ///圆角
-            IntPtr hWnd = new WindowInteropHelper(GetWindow(this)).EnsureHandle();
-            var attribute = DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE;
-            var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
-            DwmSetWindowAttribute(hWnd, attribute, ref preference, sizeof(uint));
+            base.OnApplyTemplate();
 
+            _mainBorder = GetTemplateChild("MainBorder") as Border;
 
-            _mainBorder = (Border)Template.FindName("MainBorder", this);
             _layoutRoot = _mainBorder.Child as Grid;
-            _dockPanel = (DockPanel)Template.FindName("TitleDock", this);
 
-            _navigationButton = (Button)Template.FindName("NavigationButton", this);
+            _dockPanel = GetTemplateChild("TitleDock") as DockPanel;
+
+            _navigationButton = GetTemplateChild("NavigationButton") as Button;
             _navigationButton.Click += ((a, b) =>
             {
                 NavigationButtonClick.Invoke(a, b);
             });
 
-            _closeButton = (Button)Template.FindName("CloseBtn", this);
+            _closeButton = GetTemplateChild("CloseBtn") as Button;
             _closeButton.Click += ((a, b) =>
             {
                 Close();
             });
 
-            _maximizeButton = (Button)Template.FindName("MaximizeButton", this);
+            _maximizeButton = GetTemplateChild("MaximizeButton") as Button;
             _maximizeButton.Click += ((a, b) =>
             {
                 WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
                 _maximizeButton.Tag = WindowState == WindowState.Maximized ? "Max" : "Normal";
             });
 
-            _minizeButton = (Button)Template.FindName("MinizeButton", this);
+            _minizeButton = GetTemplateChild("MinizeButton") as Button;
             _minizeButton.Click += ((a, b) =>
             {
                 WindowState = WindowState.Minimized;
             });
 
-            _topButton = (Button)Template.FindName("TopButton", this);
+            _topButton = GetTemplateChild("TopButton") as Button;
             _topButton.Click += ((a, b) =>
             {
                 Topmost = !Topmost;
                 _topButton.Tag = Topmost ? "Top" : "Auto";
             });
 
-            _menuDockIsland = (MenuIsland)Template.FindName("MenuDockIsland", this);
-            _leftPanel = (StackPanel)Template.FindName("DockLeftPanel", this);
+            _menuDockIsland = GetTemplateChild("MenuDockIsland") as MenuIsland;
+            _leftPanel = GetTemplateChild("DockLeftPanel") as StackPanel;
 
-            _moreButton = (Button)Template.FindName("MoreButton", this);
+            _moreButton = GetTemplateChild("MoreButton") as Button;
             if (this.IsMoreButton)
             {
                 _moreButton.Click += ((a, b) =>
@@ -186,7 +185,12 @@ namespace WpfLibrary
             {
                 _moreButton.Visibility = Visibility.Collapsed;
             }
-            return;
+
+            ///圆角
+            IntPtr hWnd = new WindowInteropHelper(GetWindow(this)).EnsureHandle();
+            var attribute = DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE;
+            var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
+            DwmSetWindowAttribute(hWnd, attribute, ref preference, sizeof(uint));
         }
 
         /// <summary>

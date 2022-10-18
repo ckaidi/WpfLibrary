@@ -14,8 +14,10 @@
                     <local:GroupControl Label="{TemplateBinding Label}" 
                                         InnerMargin="{TemplateBinding InnerMargin}" BorderThickness="{TemplateBinding BorderThickness}">
                         <ComboBox  Grid.Column="1" Width="240" HorizontalAlignment="Right"
-                                   x:Name="MainComboBox"
-                                  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                                   x:Name="MainComboBox" ItemsSource="{TemplateBinding ItemsSource}"
+                                   SelectedIndex="{TemplateBinding SelectedIndex}"
+                                   SelectedItem="{TemplateBinding SelectedItem}"
+                                   VerticalAlignment="Center" VerticalContentAlignment="Center"/>
                     </local:GroupControl>
                 </ControlTemplate>
             </Setter.Value>

@@ -19,6 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ComboBox = System.Windows.Controls.ComboBox;
+using static WpfLibrary.Extension.SystemExtension;
 
 namespace WpfLibrary
 {
@@ -48,14 +49,12 @@ namespace WpfLibrary
         /// </summary>
         private double _unfoldWidth;
 
+        /// <summary>
+        /// 静态构造函数
+        /// </summary>
         static NavigationViewItems()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NavigationViewItems), new FrameworkPropertyMetadata(typeof(NavigationViewItems)));
-            var itemsControlType = typeof(ItemsControl);
-            NewItemInfo = itemsControlType.GetMethod("NewItemInfo", BindingFlags.Instance | BindingFlags.NonPublic);
-            var selectorType = typeof(ComboBox);
-            SelectionChange = selectorType.GetProperty("SelectionChange", BindingFlags.Instance | BindingFlags.NonPublic);
-            SelectJustThisItem = SelectionChange.PropertyType.GetMethod("SelectJustThisItem", BindingFlags.Instance | BindingFlags.NonPublic);
         }
 
         /// <summary>
@@ -153,21 +152,6 @@ namespace WpfLibrary
                 Fold();
             }
         }
-
-        /// <summary>
-        /// itemscontrol方法的访问
-        /// </summary>
-        private static readonly MethodInfo NewItemInfo;
-
-        /// <summary>
-        /// selector属性SelectionChange
-        /// </summary>
-        private static readonly PropertyInfo SelectionChange;
-
-        /// <summary>
-        /// selectionchanged的SelectJustThisItem方法
-        /// </summary>
-        private static readonly MethodInfo SelectJustThisItem;
 
         /// <summary>
         /// 由子类通知被点击
