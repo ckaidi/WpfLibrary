@@ -80,37 +80,5 @@ namespace WpfLibrary.Extension
                 SelectJustThisItem.Invoke(selectionChange, new object[] { temp, false });
             }
         }
-
-        /// <summary>
-        /// Selector的CoerceSelectedItem
-        /// </summary>
-        /// <param name="d"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static object CoerceSelectedItem(DependencyObject d, object value)
-        {
-            Selector s = null;
-            if (d is ComboBoxGroup comboBoxGroup)
-            {
-                s = comboBoxGroup.MainComboBox;
-            }
-            else
-                s = (Selector)d;
-            if (s != null)
-            {
-                var skipCoerceSelectedItemCheck = SkipCoerceSelectedItemCheck.GetValue(s) as bool?;
-                if (value == null || (skipCoerceSelectedItemCheck != null && skipCoerceSelectedItemCheck.Value))
-                    return value;
-
-                int selectedIndex = s.SelectedIndex;
-
-                if ((selectedIndex > -1 && selectedIndex < s.Items.Count && s.Items[selectedIndex] == value)
-                    || s.Items.Contains(value))
-                {
-                    return value;
-                }
-            }
-            return DependencyProperty.UnsetValue;
-        }
     }
 }
