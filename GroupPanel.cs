@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -19,7 +18,7 @@ namespace WpfLibrary
     /// <summary>
     /// 代替wpf的groupbox
     /// </summary>
-    public class GroupPanel : Selector
+    public class GroupPanel : ItemsControl
     {
         /// <summary>
         /// 标签文字

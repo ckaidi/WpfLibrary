@@ -29,6 +29,13 @@ namespace WpfLibrary
         private TextBox _innerTextBox;
 
         /// <summary>
+        /// 用于防止嵌套之间重新进入的标志
+        /// OnTextPropertyChanged/OnTextContainerChanged callbacks.
+        /// </summary>
+        private bool _isInsideTextContentChange;
+        private object _newTextValue = DependencyProperty.UnsetValue;
+
+        /// <summary>
         /// 文字
         /// </summary>
         [Bindable(true)]

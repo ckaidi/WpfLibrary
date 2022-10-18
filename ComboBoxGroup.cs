@@ -52,11 +52,11 @@ namespace WpfLibrary
             set { SetValue(SelectedItemProperty, value); }
         }
         public static readonly DependencyProperty SelectedItemProperty =
-                DependencyProperty.Register(
-                        "SelectedItem",
-                        typeof(object),
-                        typeof(ComboBoxGroup),
-                        new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+            DependencyProperty.Register(
+                "SelectedItem",
+                typeof(object),
+                typeof(ComboBoxGroup),
+                new PropertyMetadata());
 
         /// <summary>
         /// 绑定到ComboboxItemsSource
@@ -76,26 +76,9 @@ namespace WpfLibrary
                 new PropertyMetadata());
 
         /// <summary>
-        /// 文字改变事件
-        /// </summary>
-        public static readonly RoutedEvent SelectionChangedEvent =
-            EventManager.RegisterRoutedEvent("SelectionChanged", RoutingStrategy.Bubble, typeof(SelectionChangedEventHandler), typeof(ComboBoxGroup));
-        public event SelectionChangedEventHandler SelectionChanged
-        {
-            add
-            {
-                AddHandler(ComboBoxGroup.SelectionChangedEvent, value);
-            }
-            remove
-            {
-                RemoveHandler(ComboBoxGroup.SelectionChangedEvent, value);
-            }
-        }
-
-        /// <summary>
         /// 主要的combobox
         /// </summary>
-        private ComboBox _mainComboBox;
+        public ComboBox MainComboBox { get; private set; }
 
         /// <summary>
         /// 静态构造函数
@@ -110,36 +93,17 @@ namespace WpfLibrary
         /// </summary>
         public ComboBoxGroup()
         {
+            Loaded += ComboBoxGroup_Loaded;
         }
 
         /// <summary>
-        /// 加载模板
-        /// </summary>
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-            _mainComboBox = GetTemplateChild("MainComboBox") as ComboBox;
-            if (_mainComboBox != null)
-            {
-                _mainComboBox.SelectionChanged += _mainComboBox_SelectionChanged;
-            }
-        }
-
-        /// <summary>
-        /// combobox选择集改变时
+        /// 加载时获得Combobox
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        /// <exception cref="NotImplementedException"></exception>
-        private void _mainComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBoxGroup_Loaded(object sender, RoutedEventArgs e)
         {
-            e.RoutedEvent = SelectionChangedEvent;
-            if (sender is ComboBox comboBox)
-            {
-                SelectedIndex = comboBox.SelectedIndex;
-                SelectedItem = comboBox.SelectedItem;
-            }
-            RaiseEvent(e);
+            MainComboBox = (ComboBox)Template.FindName("MainComboBox", this);
         }
     }
 }
