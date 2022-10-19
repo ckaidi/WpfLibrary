@@ -1220,7 +1220,7 @@
                                 </Button>
                                 <Button DockPanel.Dock="Right" x:Name="MoreButton" Style="{StaticResource CaptionButtonStyle}" 
                                         Content="&#xE712;" FontFamily="Segoe MDL2 Assets"/>
-                                <StackPanel DockPanel.Dock="Left" x:Name="DockRightPanel"/>
+                                <StackPanel DockPanel.Dock="Right" x:Name="DockRightPanel"/>
                                 <Grid x:Name="titleArea" Background="Transparent" DockPanel.Dock="Left">
                                     <TextBlock x:Name="titleAreaText" FontSize="12" Text="{TemplateBinding Title}"
                                    HorizontalAlignment="Left" TextTrimming="CharacterEllipsis"

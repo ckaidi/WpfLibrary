@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Background="Transparent"
              Height="48" Width="240">
-    <Border CornerRadius="10" Background="White" BorderThickness="1.5" BorderBrush="LightGray" Margin="5">
+    <Border CornerRadius="10" Background="White" BorderThickness="1.5" BorderBrush="LightGray" Margin="5" x:Name="MainBorder">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -18,10 +18,13 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBox Panel.ZIndex="99" x:Name="tnme" Language="zh-cn" Background="Transparent" 
-                         VerticalAlignment="Center"
-                     BorderThickness="0" VerticalContentAlignment="Center" Margin="5,0,0,0" FontStyle="Italic">
+                         VerticalAlignment="Stretch" Text=""
+                     BorderThickness="0" VerticalContentAlignment="Stretch" Margin="5,0,0,0" FontStyle="Italic">
                 </TextBox>
-                <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType=local:SearchControl}, Path=TipText}" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="5,0,0,0" FontStyle="Italic" Foreground="LightGray" BorderThickness="0" Name="TipTextBox"/>
+                <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType=local:SearchControl}, Path=TipText}" VerticalAlignment="Center" 
+                         VerticalContentAlignment="Bottom" Margin="5,0,0,0" FontStyle="Italic" Foreground="LightGray" 
+                         Height="38" IsReadOnly="True"
+                         Background="Transparent" BorderThickness="0" Name="TipTextBox"/>
                 <TextBlock Margin="0,0,5,0" Text="&#xE71E;" FontFamily="Segoe MDL2 Assets" Grid.Column="1" VerticalAlignment="Center" Foreground="#FF3E93C8"/>
             </Grid>
         </Grid>

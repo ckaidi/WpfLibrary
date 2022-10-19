@@ -81,6 +81,11 @@ namespace WpfLibrary
         private StackPanel _leftPanel;
 
         /// <summary>
+        /// 标题栏右边
+        /// </summary>
+        private StackPanel _rightPanel;
+
+        /// <summary>
         /// 是否显示更多按钮(陈动岛)
         /// </summary>
         public bool IsMoreButton
@@ -172,6 +177,7 @@ namespace WpfLibrary
 
             _menuDockIsland = GetTemplateChild("MenuDockIsland") as MenuIsland;
             _leftPanel = GetTemplateChild("DockLeftPanel") as StackPanel;
+            _rightPanel = GetTemplateChild("DockRightPanel") as StackPanel;
 
             _moreButton = GetTemplateChild("MoreButton") as Button;
             if (this.IsMoreButton)
@@ -234,6 +240,8 @@ namespace WpfLibrary
             DockPanel.SetDock(result, dock);
             if (dock == Dock.Left)
                 _leftPanel.Children.Add(result);
+            else
+                _rightPanel.Children.Add(result);
             return result;
         }
     }

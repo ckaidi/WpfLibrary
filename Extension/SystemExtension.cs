@@ -71,7 +71,13 @@ namespace WpfLibrary.Extension
         /// <param name="e"></param>
         public static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Selector s = (Selector)d;
+            Selector s = null;
+            if (d is ComboBoxGroup comboBoxGroup)
+            {
+                s = comboBoxGroup.MainComboBox;
+            }
+            else
+                s = (Selector)d;
             var selectionChange = SelectionChange.GetValue(s);
             var isActive = IsActive.GetValue(selectionChange) as bool?;
             if (isActive != null && isActive.Value)

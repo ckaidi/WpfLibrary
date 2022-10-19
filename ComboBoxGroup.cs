@@ -26,6 +26,43 @@ namespace WpfLibrary
     public class ComboBoxGroup : GroupControl
     {
         /// <summary>
+        /// combobox选中的项改变事件
+        /// </summary>
+        public static readonly RoutedEvent SelectedObjectChangedEvent =
+            EventManager.RegisterRoutedEvent("SelectedObjectChanged", RoutingStrategy.Bubble,
+                typeof(SelectionChangedEventHandler), typeof(ComboBoxGroup));
+        public event RoutedPropertyChangedEventHandler<object> SelectedObjectChanged
+        {
+            add
+            {
+                AddHandler(SelectedObjectChangedEvent, value);
+            }
+            remove
+            {
+                RemoveHandler(SelectedObjectChangedEvent, value);
+            }
+        }
+
+        /// <summary>
+        /// combobox选中的项
+        /// </summary>
+        [Bindable(true)]
+        public object SelectedObject
+        {
+            get
+            {
+                return (object)GetValue(SelectedObjectProperty);
+            }
+            set
+            {
+                SetValue(SelectedObjectProperty, value);
+            }
+        }
+        public static readonly DependencyProperty SelectedObjectProperty =
+            DependencyProperty.Register("SelectedObject", typeof(object), typeof(ComboBoxGroup),
+                new UIPropertyMetadata(null, new PropertyChangedCallback(OnSelectedItemChanged)));
+
+        /// <summary>
         /// ComboBox SelectedItem
         /// </summary>
         [Bindable(true)]
@@ -51,12 +88,15 @@ namespace WpfLibrary
             get { return GetValue(SelectedItemProperty); }
             set { SetValue(SelectedItemProperty, value); }
         }
+        /// <summary>
+        ///     SelectedItem DependencyProperty
+        /// </summary>
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register(
-                "SelectedItem",
-                typeof(object),
-                typeof(ComboBoxGroup),
-                new PropertyMetadata());
+                DependencyProperty.Register(
+                        "SelectedItem",
+                        typeof(object),
+                        typeof(ComboBoxGroup),
+                        new PropertyMetadata());
 
         /// <summary>
         /// 绑定到ComboboxItemsSource
@@ -93,17 +133,43 @@ namespace WpfLibrary
         /// </summary>
         public ComboBoxGroup()
         {
-            Loaded += ComboBoxGroup_Loaded;
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            MainComboBox = GetTemplateChild("MainComboBox") as ComboBox;
+            if (MainComboBox != null)
+            {
+                MainComboBox.SelectionChanged += MainComboBox_SelectionChanged;
+            }
+        }
+
+        private void MainComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
         }
 
         /// <summary>
-        /// 加载时获得Combobox
+        /// Selector的OnSelectedItemChanged
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="d"></param>
         /// <param name="e"></param>
-        private void ComboBoxGroup_Loaded(object sender, RoutedEventArgs e)
+        public static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            MainComboBox = (ComboBox)Template.FindName("MainComboBox", this);
+            Selector s = null;
+            //if (d is ComboBoxGroup comboBoxGroup)
+            //{
+            //    s = comboBoxGroup.MainComboBox;
+            //}
+            //else
+            //    s = (Selector)d;
+            //var selectionChange = SelectionChange.GetValue(s);
+            //var isActive = IsActive.GetValue(selectionChange) as bool?;
+            //if (isActive != null && isActive.Value)
+            //{
+            //    var temp = NewItemInfo.Invoke(s, new object[] { e.NewValue });
+            //    SelectJustThisItem.Invoke(selectionChange, new object[] { temp, false });
+            //}
         }
     }
 }
