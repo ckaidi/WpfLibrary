@@ -28,39 +28,20 @@ namespace WpfLibrary
         /// <summary>
         /// combobox选中的项改变事件
         /// </summary>
-        public static readonly RoutedEvent SelectedObjectChangedEvent =
+        public static readonly RoutedEvent SelectionChangedEvent =
             EventManager.RegisterRoutedEvent("SelectedObjectChanged", RoutingStrategy.Bubble,
                 typeof(SelectionChangedEventHandler), typeof(ComboBoxGroup));
-        public event RoutedPropertyChangedEventHandler<object> SelectedObjectChanged
+        public event SelectionChangedEventHandler SelectionChanged
         {
             add
             {
-                AddHandler(SelectedObjectChangedEvent, value);
+                AddHandler(SelectionChangedEvent, value);
             }
             remove
             {
-                RemoveHandler(SelectedObjectChangedEvent, value);
+                RemoveHandler(SelectionChangedEvent, value);
             }
         }
-
-        /// <summary>
-        /// combobox选中的项
-        /// </summary>
-        [Bindable(true)]
-        public object SelectedObject
-        {
-            get
-            {
-                return (object)GetValue(SelectedObjectProperty);
-            }
-            set
-            {
-                SetValue(SelectedObjectProperty, value);
-            }
-        }
-        public static readonly DependencyProperty SelectedObjectProperty =
-            DependencyProperty.Register("SelectedObject", typeof(object), typeof(ComboBoxGroup),
-                new UIPropertyMetadata(null, new PropertyChangedCallback(OnSelectedItemChanged)));
 
         /// <summary>
         /// ComboBox SelectedItem
@@ -88,15 +69,12 @@ namespace WpfLibrary
             get { return GetValue(SelectedItemProperty); }
             set { SetValue(SelectedItemProperty, value); }
         }
-        /// <summary>
-        ///     SelectedItem DependencyProperty
-        /// </summary>
         public static readonly DependencyProperty SelectedItemProperty =
-                DependencyProperty.Register(
-                        "SelectedItem",
-                        typeof(object),
-                        typeof(ComboBoxGroup),
-                        new PropertyMetadata());
+            DependencyProperty.Register("SelectedItem", typeof(object), typeof(ComboBoxGroup),
+                new FrameworkPropertyMetadata(
+                    null,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    new PropertyChangedCallback(OnSelectedItemChanged)));
 
         /// <summary>
         /// 绑定到ComboboxItemsSource
@@ -145,8 +123,17 @@ namespace WpfLibrary
             }
         }
 
+        /// <summary>
+        /// 内层combobox的选择项
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems.Count > 0)
+            {
+                SelectedItem = e.AddedItems[0];
+            }
         }
 
         /// <summary>
@@ -156,20 +143,22 @@ namespace WpfLibrary
         /// <param name="e"></param>
         public static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Selector s = null;
-            //if (d is ComboBoxGroup comboBoxGroup)
-            //{
-            //    s = comboBoxGroup.MainComboBox;
-            //}
-            //else
-            //    s = (Selector)d;
-            //var selectionChange = SelectionChange.GetValue(s);
-            //var isActive = IsActive.GetValue(selectionChange) as bool?;
-            //if (isActive != null && isActive.Value)
-            //{
-            //    var temp = NewItemInfo.Invoke(s, new object[] { e.NewValue });
-            //    SelectJustThisItem.Invoke(selectionChange, new object[] { temp, false });
-            //}
+            var comboBoxGroup = d as ComboBoxGroup;
+            if (comboBoxGroup != null && comboBoxGroup.IsInitialized)
+            {
+                var args = new SelectionChangedEventArgs(ComboBoxGroup.SelectionChangedEvent, new List<object> { e.OldValue }, new List<object> { e.NewValue });
+                comboBoxGroup.OnSelectedItemChanged(comboBoxGroup, args);
+            }
+        }
+
+        /// <summary>
+        /// 改变SelectionChanged
+        /// </summary>
+        /// <param name="oldValue"></param>
+        /// <param name="newValue"></param>
+        protected virtual void OnSelectedItemChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RaiseEvent(e);
         }
     }
 }

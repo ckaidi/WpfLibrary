@@ -38,5 +38,13 @@ namespace WpfLibrary
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Page), new FrameworkPropertyMetadata(typeof(Page)));
         }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public Page()
+        {
+            ShowsNavigationUI = false;
+        }
     }
 }

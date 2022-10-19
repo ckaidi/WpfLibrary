@@ -4,6 +4,7 @@
     xmlns:local="clr-namespace:WpfLibrary">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/BrushDic.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/PageTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/ToggleButtonTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/GroupControlTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/TextBoxGroupTemplete.xaml"/>
@@ -1306,16 +1307,6 @@
 
     <Style TargetType="{x:Type local:ToggleButton}">
         <Setter Property="Template" Value="{StaticResource ToggleButtonTemplate}"/>
-    </Style>
-
-    <Style TargetType="{x:Type local:Page}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:Page}">
-                    <Grid/>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <Style TargetType="{x:Type local:GroupPanel}">

@@ -62,19 +62,22 @@ namespace WpfLibrary
         /// </summary>
         public NavigationViewItems()
         {
-            this.Loaded += NavigationViewItems_Loaded;
+            Loaded += NavigationViewItems_Loaded;
+        }
+
+        private void NavigationViewItems_Loaded(object sender, RoutedEventArgs e)
+        {
+            _unfoldWidth = _mainScrollViewer.ActualWidth;
         }
 
         /// <summary>
-        /// 加载完成之后从内部模板获取控件
+        /// 加载模板
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void NavigationViewItems_Loaded(object sender, RoutedEventArgs e)
+        public override void OnApplyTemplate()
         {
-            _mainScrollViewer = (ScrollViewer)Template.FindName("MainScrollViewer", this);
-            _unfoldWidth = _mainScrollViewer.ActualWidth;
-            _statusBar = (Rectangle)Template.FindName("statusBar", this);
+            base.OnApplyTemplate();
+            _mainScrollViewer = GetTemplateChild("MainScrollViewer") as ScrollViewer;
+            _statusBar = GetTemplateChild("statusBar") as Rectangle;
         }
 
         /// <summary>
@@ -84,11 +87,7 @@ namespace WpfLibrary
         /// <returns></returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            if (item is NavigationViewItem navigationViewItem)
-            {
-                return true;
-            }
-            return false;
+            return item is NavigationViewItem;
         }
 
         /// <summary>
