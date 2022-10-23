@@ -97,6 +97,28 @@ namespace WpfLibrary
             DependencyProperty.Register("IsMoreButton", typeof(bool), typeof(NoWindow), new PropertyMetadata(false));
 
         /// <summary>
+        /// 是否显示置顶按钮
+        /// </summary>
+        public bool IsTopmostButton
+        {
+            get { return (bool)GetValue(IsTopmostButtonProperty); }
+            set { SetValue(IsTopmostButtonProperty, value); }
+        }
+        public static readonly DependencyProperty IsTopmostButtonProperty =
+            DependencyProperty.Register("IsTopmostButton", typeof(bool), typeof(NoWindow), new PropertyMetadata(true));
+
+        /// <summary>
+        /// 是否显示缩小按钮
+        /// </summary>
+        public bool IsMinizeButton
+        {
+            get { return (bool)GetValue(IsMinizeButtonProperty); }
+            set { SetValue(IsMinizeButtonProperty, value); }
+        }
+        public static readonly DependencyProperty IsMinizeButtonProperty =
+            DependencyProperty.Register("IsMinizeButton", typeof(bool), typeof(NoWindow), new PropertyMetadata(true));
+
+        /// <summary>
         /// 是否显示导航菜单按钮
         /// </summary>
         public bool IsNavigationButton
@@ -156,11 +178,18 @@ namespace WpfLibrary
             });
 
             _maximizeButton = GetTemplateChild("MaximizeButton") as Button;
-            _maximizeButton.Click += ((a, b) =>
+            if (ResizeMode == ResizeMode.NoResize)
             {
-                WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
-                _maximizeButton.Tag = WindowState == WindowState.Maximized ? "Max" : "Normal";
-            });
+                _maximizeButton.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                _maximizeButton.Click += ((a, b) =>
+                {
+                    WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+                    _maximizeButton.Tag = WindowState == WindowState.Maximized ? "Max" : "Normal";
+                });
+            }
 
             _minizeButton = GetTemplateChild("MinizeButton") as Button;
             _minizeButton.Click += ((a, b) =>

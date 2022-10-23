@@ -17,8 +17,9 @@
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{TemplateBinding Label}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            <ContentPresenter Grid.Column="1" Width="240" HorizontalAlignment="Right" x:Name="MainTextBox" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="0" x:Name="tb" Text="{TemplateBinding Label}" VerticalAlignment="Center" 
+                                       HorizontalAlignment="{TemplateBinding LabelHorizontalAlignment}"/>
+                            <ContentPresenter Grid.Column="1" Width="{TemplateBinding ContentWidth}" HorizontalAlignment="Right" x:Name="cp" VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>

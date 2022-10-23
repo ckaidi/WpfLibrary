@@ -11,8 +11,9 @@
     <local:BindingListDescriptionConverter x:Key="BindingListDescriptionConverter"/>
     <local:BindingDescriptionConverter x:Key="BindingDescriptionConverter"/>
     <local:BindingValueToAbsConverter x:Key="BindingValueToAbsConverter"/>
+    <local:BindingStringToAddString x:Key="BindingStringToAddString"/>
 
-    <SolidColorBrush x:Key="StatusBarFillColor" Color="#FF7E4995"/>
+    <SolidColorBrush x:Key="StatusBarFillColor" Color="#FF3C77DD"/>
     <LinearGradientBrush x:Key="ComboBox.MouseOver.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
         <GradientStop Color="#FFEBF4FC" Offset="0.0"/>
         <GradientStop Color="#FFDCECFC" Offset="1.0"/>
@@ -90,12 +91,19 @@
     <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Stroke" Color="#FF1CC4F7"/>
     <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Fill" Color="#FF82DFFB"/>
 
-    <SolidColorBrush x:Key="Button.Static.Background" Color="#FF7E4995"/>
+    <!--<SolidColorBrush x:Key="Button.Static.Background" Color="#FF7E4995"/>
     <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
     <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#DD7E4995"/>
     <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
     <SolidColorBrush x:Key="Button.Pressed.Background" Color="#BB7E4995"/>
+    <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>-->
+    <SolidColorBrush x:Key="Button.Static.Background" Color="#FF3C77DD"/>
+    <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#DD3C77DD"/>
+    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#BB3C77DD"/>
     <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+
     <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
     <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>

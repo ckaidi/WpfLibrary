@@ -5,6 +5,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/BrushDic.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/PageTemplete.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/CheckBoxGroupTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/ToggleButtonTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/GroupControlTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/TextBoxGroupTemplete.xaml"/>
@@ -12,6 +13,8 @@
         <ResourceDictionary Source="/WpfLibrary;component/Themes/ComboBoxGroupTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/PropertyPanelTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/ToggleSwitchGroupTemplete.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/NoWindowTemplete.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/NoDialogTemplete.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 
@@ -1073,178 +1076,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
-    <Style x:Key="CaptionButtonBaseStyle" TargetType="{x:Type Button}">
-        <Setter Property="Focusable" Value="False" />
-        <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Foreground" Value="{DynamicResource WindowTextForeground}" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
-    </Style>
-
-    <Style x:Key="CaptionTextButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonBaseStyle}">
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Padding" Value="6,2,6,2" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            BorderBrush="{TemplateBinding BorderBrush}" Padding="{TemplateBinding Padding}">
-                        <ContentPresenter />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderBrush" Value="{DynamicResource CaptionTextHoverBorder}" />
-                <Setter Property="Background" Value="{DynamicResource CaptionButtonHoverBackground}" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{DynamicResource CaptionButtonPressBackground}" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="CaptionButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonBaseStyle}">
-        <Setter Property="Width" Value="45" />
-        <Setter Property="Height" Value="32" />
-        <Setter Property="FontSize" Value="13" />
-        <!--<Setter Property="FontFamily" Value="{StaticResource SegoeMDL2}" />-->
-        <Setter Property="Foreground" Value="{DynamicResource CaptionButtonIconForeground}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}" BorderThickness="0"
-                            Padding="{TemplateBinding Padding}">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource CaptionButtonHoverBackground}" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{DynamicResource CaptionButtonPressBackground}" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="CaptionCloseButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource CaptionCloseButtonHoverForeground}" />
-                <Setter Property="Background" Value="{DynamicResource CaptionCloseButtonHoverBackground}" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{DynamicResource CaptionCloseButtonPressBackground}" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style TargetType="{x:Type local:NoWindow}">
-        <Setter Property="Background" Value="White"/>
-        <Setter Property="IsNavigationButton" Value="False"/>
-        <Setter Property="Topmost" Value="True"/>
-        <Setter Property="WindowChrome.WindowChrome">
-            <Setter.Value>
-                <WindowChrome 
-                    CaptionHeight="32"
-                    CornerRadius="0"
-                    GlassFrameThickness="0"
-                    ResizeBorderThickness="{StaticResource MainWindowResizeThickness}"
-                    UseAeroCaptionButtons="False"/>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:NoWindow}" x:Name="mainT">
-                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" x:Name="MainBorder">
-                        <Grid x:Name="LayoutRoot" Background="{TemplateBinding Background}">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="32" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <DockPanel Grid.Row="0" Background="{StaticResource SystemDefaultTitleBackgroundBrush}" Name="TitleDock">
-                                <Button DockPanel.Dock="Left" x:Name="NavigationButton" Style="{StaticResource CaptionButtonStyle}"
-                                        Content="&#xE700;" FontFamily="Segoe MDL2 Assets"
-                                        Visibility="{TemplateBinding IsNavigationButton, Converter={StaticResource BindingVisibilityConverterCollapsed}}"
-                                        FontSize="16"/>
-                                <StackPanel DockPanel.Dock="Left" x:Name="DockLeftPanel"/>
-                                <Button DockPanel.Dock="Right" x:Name="CloseBtn" Style="{StaticResource CaptionCloseButtonStyle}"
-                                        Content="&#xE894;" FontFamily="Segoe MDL2 Assets">
-                                </Button>
-                                <Button DockPanel.Dock="Right" x:Name="MaximizeButton" Tag="Normal" FontFamily="Segoe MDL2 Assets">
-                                    <Button.Style>
-                                        <Style TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
-                                            <Setter Property="Content" Value="&#xE740;" />
-                                            <Style.Triggers>
-                                                <Trigger Property="Tag" Value="Normal">
-                                                    <Setter Property="Content" Value="&#xE740;" />
-                                                </Trigger>
-                                                <Trigger Property="Tag" Value="Max">
-                                                    <Setter Property="Content" Value="&#xE73F;" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
-                                <Button DockPanel.Dock="Right" x:Name="MinizeButton" Style="{StaticResource CaptionButtonStyle}"
-                                        Content="&#xE738;" FontFamily="Segoe MDL2 Assets">
-                                </Button>
-                                <Button DockPanel.Dock="Right" x:Name="TopButton" Tag="Top" FontFamily="Segoe MDL2 Assets" Cursor="Hand">
-                                    <Button.Resources>
-                                        <Grid x:Key="ContentTop">
-                                            <TextBlock>&#xE898;</TextBlock>
-                                            <TextBlock>&#xE872;</TextBlock>
-                                        </Grid>
-                                    </Button.Resources>
-                                    <Button.Style>
-                                        <Style TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
-                                            <Setter Property="Content" Value="&#xE898;" />
-                                            <Style.Triggers>
-                                                <Trigger Property="Tag" Value="Auto">
-                                                    <Setter Property="Content" Value="&#xE898;" />
-                                                </Trigger>
-                                                <Trigger Property="Tag" Value="Top">
-                                                    <Setter Property="Content" Value="{StaticResource ContentTop}" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
-                                <Button DockPanel.Dock="Right" x:Name="MoreButton" Style="{StaticResource CaptionButtonStyle}" 
-                                        Content="&#xE712;" FontFamily="Segoe MDL2 Assets"/>
-                                <StackPanel DockPanel.Dock="Right" x:Name="DockRightPanel"/>
-                                <Grid x:Name="titleArea" Background="Transparent" DockPanel.Dock="Left">
-                                    <TextBlock x:Name="titleAreaText" FontSize="12" Text="{TemplateBinding Title}"
-                                   HorizontalAlignment="Left" TextTrimming="CharacterEllipsis"
-                                   VerticalAlignment="Center"/>
-                                </Grid>
-                            </DockPanel>
-                            <Grid Grid.Row="1" KeyboardNavigation.IsTabStop="False">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <ContentPresenter x:Name="MainContentPresenter" KeyboardNavigation.TabNavigation="Cycle" Grid.Column="1"/>
-                                </Grid>
-                                <local:MenuIsland x:Name="MenuDockIsland" Panel.ZIndex="-999"/>
-                            </Grid>
-                        </Grid>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <Style TargetType="{x:Type local:NavigationViewItem}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Template">

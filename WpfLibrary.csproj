@@ -83,6 +83,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\CheckBoxGroupTemplete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\ComboBoxGroupTemplete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -92,6 +96,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\GroupControlTemplete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\NoDialogTemplete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\NoWindowTemplete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,11 +133,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckBoxGroup.cs" />
     <Compile Include="ComboBoxGroup.cs" />
     <Compile Include="Converter\BindingCornerRadiusToThickness.cs" />
     <Compile Include="Converter\BindingDescriptionConverter.cs" />
     <Compile Include="Converter\BindingDoubleWithForumlaConverter.cs" />
     <Compile Include="Converter\BindingListDescriptionConverter.cs" />
+    <Compile Include="Converter\BindingStringToAddString.cs" />
     <Compile Include="Converter\BindingTextConverter.cs" />
     <Compile Include="Converter\BindingValueToAbsConverter.cs" />
     <Compile Include="Converter\BindingVisibilityConverterCollapsedConverter.cs" />
@@ -143,6 +157,7 @@
     </Compile>
     <Compile Include="NavigationViewItem.cs" />
     <Compile Include="NavigationViewItems.cs" />
+    <Compile Include="NoDialog.cs" />
     <Compile Include="NoWindow.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
