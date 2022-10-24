@@ -2,16 +2,17 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:WpfLibrary">
     <local:WindowStateMaximizedToThicknessConverter x:Key="WindowStateMaximizedToThicknessConverter" />
-    <local:WindowStateNormalToThicknessConverter x:Key="WindowStateNormalToThicknessConverter" />
     <local:BindingVisibilityConverterCollapsedConverter x:Key="BindingVisibilityConverterCollapsed"/>
+    <local:WindowStateNormalToThicknessConverter x:Key="WindowStateNormalToThicknessConverter" />
     <local:BindingVisibilityConverterHiddenConverter x:Key="BindingVisibilityConverterHidden"/>
-    <local:BindingCornerRadiusToThickness x:Key="BindingCornerRadiusToThickness"/>
-    <local:BindingTextConverter x:Key="BindingTextConverter"/>
     <local:BindingDoubleWithForumlaConverter x:Key="BindingDoubleWithForumlaConverter"/>
     <local:BindingListDescriptionConverter x:Key="BindingListDescriptionConverter"/>
+    <local:BindingReverseBooleanConverter x:Key="BindingReverseBooleanConverter"/>
+    <local:BindingCornerRadiusToThickness x:Key="BindingCornerRadiusToThickness"/>
     <local:BindingDescriptionConverter x:Key="BindingDescriptionConverter"/>
     <local:BindingValueToAbsConverter x:Key="BindingValueToAbsConverter"/>
     <local:BindingStringToAddString x:Key="BindingStringToAddString"/>
+    <local:BindingTextConverter x:Key="BindingTextConverter"/>
 
     <SolidColorBrush x:Key="StatusBarFillColor" Color="#FF3C77DD"/>
     <LinearGradientBrush x:Key="ComboBox.MouseOver.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">

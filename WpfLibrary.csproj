@@ -138,6 +138,7 @@
     <Compile Include="Converter\BindingCornerRadiusToThickness.cs" />
     <Compile Include="Converter\BindingDescriptionConverter.cs" />
     <Compile Include="Converter\BindingDoubleWithForumlaConverter.cs" />
+    <Compile Include="Converter\BindingReverseBooleanConverter.cs" />
     <Compile Include="Converter\BindingListDescriptionConverter.cs" />
     <Compile Include="Converter\BindingStringToAddString.cs" />
     <Compile Include="Converter\BindingTextConverter.cs" />
