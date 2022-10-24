@@ -13,7 +13,7 @@
                 <ControlTemplate TargetType="{x:Type local:CheckBoxGroup}">
                     <local:GroupControl Label="{TemplateBinding Label}" LabelAllignment="Right" ContentWidth="30" LabelHorizontalAlignment="Right"
                                         InnerMargin="{TemplateBinding InnerMargin}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <CheckBox  Grid.Column="1" HorizontalAlignment="Left"
+                        <CheckBox  Grid.Column="1" HorizontalAlignment="Left" x:Name="MainCheckBox" IsChecked="{TemplateBinding IsChecked}"
                                    VerticalAlignment="Center" VerticalContentAlignment="Center"/>
                     </local:GroupControl>
                 </ControlTemplate>
