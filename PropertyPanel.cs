@@ -78,20 +78,12 @@ namespace WpfLibrary
             _mainStackPanel = (StackPanel)Template.FindName("MainStackPanel", this);
             if (DataContext != null)
             {
-                var type = DataContext.GetType();
-                var properties = type.GetProperties();
-                var propertyTree = new PropertyTree();
-                foreach (var property in properties)
-                {
-                    var browsableAttr = property.GetCustomAttribute<BrowsableAttribute>();
-                    if (browsableAttr == null || browsableAttr.Browsable)//如果为空或者可见
-                    {
-                        propertyTree.SetProperty(property, property.GetValue(DataContext));
-                    }
-                }
-                propertyTree.Sort();
-
                 //生成控件
+                var properties = TypeDescriptor.GetProperties(DataContext);
+                foreach (PropertyDescriptor property in properties)
+                {
+
+                }
             }
         }
     }
