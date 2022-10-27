@@ -30,6 +30,17 @@ namespace WpfLibrary
     public class NavigationViewItems : ComboBox
     {
         /// <summary>
+        /// 是否可以折叠
+        /// </summary>
+        public bool IsFoldable
+        {
+            get { return (bool)GetValue(IsFoldableProperty); }
+            set { SetValue(IsFoldableProperty, value); }
+        }
+        public static readonly DependencyProperty IsFoldableProperty =
+            DependencyProperty.Register("IsFoldable", typeof(bool), typeof(NavigationViewItems), new PropertyMetadata(true));
+
+        /// <summary>
         /// 菜单是否是收起的状态
         /// </summary>
         public bool IsFold { get; set; }
@@ -123,18 +134,21 @@ namespace WpfLibrary
         /// </summary>
         public void Fold()
         {
-            var an = new DoubleAnimation()
+            if (IsFoldable)
             {
-                From = _unfoldWidth,
-                To = 45,
-                Duration = new Duration(TimeSpan.FromSeconds(.1)),
-            };
-            foreach (NavigationViewItem item in Items)
-            {
-                item.MenuTextVisable = false;
+                var an = new DoubleAnimation()
+                {
+                    From = _unfoldWidth,
+                    To = 45,
+                    Duration = new Duration(TimeSpan.FromSeconds(.1)),
+                };
+                foreach (NavigationViewItem item in Items)
+                {
+                    item.MenuTextVisable = false;
+                }
+                _mainScrollViewer.BeginAnimation(ScrollViewer.WidthProperty, an);
+                this.IsFold = true;
             }
-            _mainScrollViewer.BeginAnimation(ScrollViewer.WidthProperty, an);
-            this.IsFold = true;
         }
 
         /// <summary>

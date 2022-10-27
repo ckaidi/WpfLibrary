@@ -59,10 +59,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="NavigationView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="SearchControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -104,6 +100,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\GroupPanelTemplete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\NavigationViewItemTemplete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -163,9 +163,6 @@
     </Compile>
     <Compile Include="MenuIsland.xaml.cs">
       <DependentUpon>MenuIsland.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NavigationView.xaml.cs">
-      <DependentUpon>NavigationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="NavigationViewItem.cs" />
     <Compile Include="NavigationViewItems.cs" />

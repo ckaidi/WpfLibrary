@@ -16,6 +16,7 @@
         <ResourceDictionary Source="/WpfLibrary;component/Themes/NoWindowTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/NoDialogTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/GroupPanelTemplete.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/NavigationViewItemTemplete.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 
@@ -1076,37 +1077,6 @@
                 </Setter>
             </Trigger>
         </Style.Triggers>
-    </Style>
-    <Style TargetType="{x:Type local:NavigationViewItem}">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:NavigationViewItem}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}" VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                            BorderThickness="{TemplateBinding BorderThickness}" Margin="4" Padding="4" CornerRadius="6">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="{TemplateBinding VerticalAlignment}">
-                            <TextBlock FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="IconTB"
-                                       Text="{TemplateBinding Icon}" FontSize="{TemplateBinding IconSize}" Margin="{StaticResource NavigationViewItemMargin}"/>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" x:Name="CommandTB"
-                                       Text="{TemplateBinding MenuText}" FontSize="{TemplateBinding MenuTextSize}" Margin="8,0,0,0" 
-                                       Visibility="{TemplateBinding MenuTextVisable,Converter={StaticResource BindingVisibilityConverterCollapsed}}">
-                            </TextBlock>
-                        </StackPanel>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="{StaticResource NavigationItemHoverAndSelectedBrush}" />
-                            <Setter Property="Background" Value="{StaticResource NavigationItemHoverAndSelectedBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="BorderBrush" Value="{StaticResource NavigationItemHoverAndSelectedBrush}" />
-                            <Setter Property="Background" Value="{StaticResource NavigationItemHoverAndSelectedBrush}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <Style TargetType="{x:Type local:NavigationViewItems}">

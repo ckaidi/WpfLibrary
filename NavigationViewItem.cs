@@ -42,7 +42,7 @@ namespace WpfLibrary
             set { SetValue(IconProperty, value); }
         }
         public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(string), typeof(NavigationViewItem), new PropertyMetadata("\xE700"));
+            DependencyProperty.Register("Icon", typeof(string), typeof(NavigationViewItem), new PropertyMetadata(null));
 
         /// <summary>
         /// 图标的大小
@@ -111,18 +111,17 @@ namespace WpfLibrary
         /// </summary>
         public NavigationViewItem()
         {
-            this.Loaded += NavigationViewItem_Loaded;
         }
 
-        /// <summary>
-        /// 加载完成之后从内部模板获取控件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void NavigationViewItem_Loaded(object sender, RoutedEventArgs e)
+        public override void OnApplyTemplate()
         {
-            IconTextBlock = (TextBlock)Template.FindName("IconTB", this);
-            CommandTextBlock = (TextBlock)Template.FindName("CommandTB", this);
+            base.OnApplyTemplate();
+            IconTextBlock = GetTemplateChild("IconTB") as TextBlock;
+            CommandTextBlock = GetTemplateChild("CommandTB") as TextBlock;
+            if (Icon == null)
+            {
+                IconTextBlock.Visibility = Visibility.Collapsed;
+            }
         }
 
         /// <summary>
