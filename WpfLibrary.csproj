@@ -51,6 +51,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ImageButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MenuIsland.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -96,6 +100,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\GroupControlTemplete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\GroupPanelTemplete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -150,6 +158,9 @@
     <Compile Include="Extension\SystemExtension.cs" />
     <Compile Include="GroupControl.cs" />
     <Compile Include="GroupPanel.cs" />
+    <Compile Include="ImageButton.xaml.cs">
+      <DependentUpon>ImageButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MenuIsland.xaml.cs">
       <DependentUpon>MenuIsland.xaml</DependentUpon>
     </Compile>
