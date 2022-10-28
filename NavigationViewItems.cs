@@ -20,6 +20,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ComboBox = System.Windows.Controls.ComboBox;
 using static WpfLibrary.Extension.SystemExtension;
+using System.Collections.Specialized;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace WpfLibrary
 {
@@ -27,8 +29,20 @@ namespace WpfLibrary
     /// 导航栏集合
     /// </summary>
     [StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(NavigationViewItem))]
-    public class NavigationViewItems : ComboBox
+    [StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(NavigationViewAddableItem))]
+    public class NavigationViewItems : Selector
     {
+        /// <summary>
+        /// 新增加子项的默认名字
+        /// </summary>
+        public string NewAddItemDefaultName
+        {
+            get { return (string)GetValue(NewAddItemDefaultNameProperty); }
+            set { SetValue(NewAddItemDefaultNameProperty, value); }
+        }
+        public static readonly DependencyProperty NewAddItemDefaultNameProperty =
+            DependencyProperty.Register("NewAddItemDefaultName", typeof(string), typeof(NavigationViewItems), new PropertyMetadata("Untitled"));
+
         /// <summary>
         /// 是否可以折叠
         /// </summary>
@@ -41,6 +55,29 @@ namespace WpfLibrary
             DependencyProperty.Register("IsFoldable", typeof(bool), typeof(NavigationViewItems), new PropertyMetadata(true));
 
         /// <summary>
+        /// 新建标签栏的提示文字
+        /// </summary>
+        public string ItemAddText
+        {
+            get { return (string)GetValue(ItemAddTextProperty); }
+            set { SetValue(ItemAddTextProperty, value); }
+        }
+        public static readonly DependencyProperty ItemAddTextProperty =
+            DependencyProperty.Register("ItemAddText", typeof(string), typeof(NavigationViewItems), new PropertyMetadata("新建标签"));
+
+        /// <summary>
+        /// 用户是否可以添加
+        /// </summary>
+        public bool CanUserAddItem
+        {
+            get { return (bool)GetValue(CanUserAddItemProperty); }
+            set { SetValue(CanUserAddItemProperty, value); }
+        }
+        public static readonly DependencyProperty CanUserAddItemProperty =
+            DependencyProperty.Register("CanUserAddItem", typeof(bool), typeof(NavigationViewItems), new PropertyMetadata(false));
+
+
+        /// <summary>
         /// 菜单是否是收起的状态
         /// </summary>
         public bool IsFold { get; set; }
@@ -51,9 +88,24 @@ namespace WpfLibrary
         private ScrollViewer _mainScrollViewer;
 
         /// <summary>
+        /// 主要网格
+        /// </summary>
+        private Grid _mainGrid;
+
+        /// <summary>
+        /// 第一行高度定义
+        /// </summary>
+        private RowDefinition _firstRowDefinition;
+
+        /// <summary>
         /// 选中项的指示栏
         /// </summary>
         private Rectangle _statusBar;
+
+        /// <summary>
+        /// 新建标签
+        /// </summary>
+        private NavigationViewAddableItem _addViewItem;
 
         /// <summary>
         /// 菜单栏展开时的宽度
@@ -76,9 +128,16 @@ namespace WpfLibrary
             Loaded += NavigationViewItems_Loaded;
         }
 
+        /// <summary>
+        /// 保存展开时候的宽度
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NavigationViewItems_Loaded(object sender, RoutedEventArgs e)
         {
             _unfoldWidth = _mainScrollViewer.ActualWidth;
+            if (!IsFoldable)
+                _mainScrollViewer.MinWidth = _mainScrollViewer.ActualWidth;
         }
 
         /// <summary>
@@ -89,6 +148,13 @@ namespace WpfLibrary
             base.OnApplyTemplate();
             _mainScrollViewer = GetTemplateChild("MainScrollViewer") as ScrollViewer;
             _statusBar = GetTemplateChild("statusBar") as Rectangle;
+            _addViewItem = GetTemplateChild("AddViewItem") as NavigationViewAddableItem;
+            _mainGrid = GetTemplateChild("MainGrid") as Grid;
+            _firstRowDefinition = GetTemplateChild("FirstRowDefinition") as RowDefinition;
+            if (CanUserAddItem && Items.Count == 0)//如果一开始为空要把状态条设为不可见
+            {
+                _statusBar.Visibility = Visibility.Collapsed;
+            }
         }
 
         /// <summary>
@@ -98,6 +164,14 @@ namespace WpfLibrary
         /// <returns></returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
+            if (item is NavigationViewAddableItem)
+            {
+                if (!CanUserAddItem)
+                {
+                    throw new Exception("请将CanUserAddItem置为true");
+                }
+                return true;
+            }
             return item is NavigationViewItem;
         }
 
@@ -107,7 +181,7 @@ namespace WpfLibrary
         /// <returns></returns>
         protected override DependencyObject GetContainerForItemOverride()
         {
-            return new NavigationViewItem();
+            return CanUserAddItem ? new NavigationViewAddableItem() : new NavigationViewItem();
         }
 
         /// <summary>
@@ -173,12 +247,89 @@ namespace WpfLibrary
         internal void NotifyNavigationViewMouseUp(NavigationViewItem navigationViewItem)
         {
             object item = ItemContainerGenerator.ItemFromContainer(navigationViewItem);
+            if (item != null && item is NavigationViewItem navigation)
+            {
+                if (navigation.IsSelectAble)
+                {
+                    var selectionChange = SelectionChange.GetValue(this);
+                    var temp = NewItemInfo.Invoke(this, new object[] { item, navigationViewItem, -1 });
+                    SelectJustThisItem.Invoke(selectionChange, new object[] { temp, true });
+                }
+            }
+            else if (navigationViewItem is NavigationViewAddableItem addableItem && CanUserAddItem && addableItem.IsDefaultAddItem)//如果是新建标签页被点击
+            {
+                var nvis = new List<NavigationViewItem>();
+                foreach (NavigationViewItem nvi in Items)
+                {
+                    nvis.Add(nvi);
+                }
+                var menuTexts = nvis.Select(x => x.MenuText).ToList();
+                int count = Items.Count + 1;
+                while (menuTexts.Contains($"{NewAddItemDefaultName}{count}"))
+                {
+                    count++;
+                }
+                Items.Insert(Items.Count, new NavigationViewAddableItem()
+                {
+                    MenuText = $"{NewAddItemDefaultName}{count}"
+                });
+            }
+        }
+
+        /// <summary>
+        /// 由子类通知被删除
+        /// </summary>
+        /// <param name="navigationViewAddableItem"></param>
+        internal void NotifyNavigationViewDeleted(NavigationViewAddableItem navigationViewAddableItem)
+        {
+            object item = ItemContainerGenerator.ItemFromContainer(navigationViewAddableItem);
             if (item != null)
             {
-                var selectionChange = SelectionChange.GetValue(this);
-                var temp = NewItemInfo.Invoke(this, new object[] { item, navigationViewItem, -1 });
-                SelectJustThisItem.Invoke(selectionChange, new object[] { temp, true });
+                var removeIndex = Items.IndexOf(item);
+                if (removeIndex != -1)
+                {
+                    Items.Remove(item);
+                    SelectionChangedEventArgs args = null;
+                    if (SelectedIndex >= removeIndex)//当前选择的索引大于被删除的索引
+                    {
+                        var newItem = Items[SelectedIndex] as NavigationViewItem;
+                        newItem.IsSelected = true;
+                        args = new SelectionChangedEventArgs(ComboBox.SelectionChangedEvent, new List<object> { item }, new List<object>() { newItem });
+                        OnSelectionChanged(args);
+                    }
+                    //当选中的索引为负一则说明列表清空了
+                    if (SelectedIndex == -1)
+                    {
+                        if (Items.Count == 0)
+                            _statusBar.Visibility = Visibility.Collapsed;
+                    }
+                }
             }
+        }
+
+        /// <summary>
+        /// 当列表的物体被清空时
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewStartingIndex == 0 && CanUserAddItem && Items.Count == 1)
+            {
+                var item = e.NewItems[0] as NavigationViewItem;
+                _statusBar.Visibility = Visibility.Visible;
+                item.IsSelected = true;
+            }
+            if (_mainGrid != null)
+            {
+                _mainGrid.UpdateLayout();
+                //网格高度大于整个控件高度的时候应该固定新建标签按钮
+                if (_mainGrid.DesiredSize.Height >= ActualHeight)
+                    _firstRowDefinition.Height = new GridLength(1, GridUnitType.Star);
+                //网格高度小于整个控件高度的时候应该移动新建标签按钮
+                else
+                    _firstRowDefinition.Height = new GridLength(1, GridUnitType.Auto);
+            }
+            base.OnItemsChanged(e);
         }
 
         /// <summary>
@@ -188,8 +339,10 @@ namespace WpfLibrary
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
             base.OnSelectionChanged(e);
+            //选择集改变时
             if (SelectedIndex >= 0 && _statusBar != null && e.AddedItems.Count == 1 && e.RemovedItems.Count == 1)//在窗口第一次打开的时候,会先运行OnSelectionChanged,在运行loaded
             {
+                _statusBar.Visibility = Visibility.Visible;
                 var nowSelected = e.AddedItems[0] as NavigationViewItem;
                 var newMargin = new Thickness(5, SelectedIndex * 44 + 14, 0, 0);
                 if (newMargin.Top > _statusBar.Margin.Top)//向下生长
@@ -249,6 +402,48 @@ namespace WpfLibrary
                     _statusBar.BeginAnimation(Rectangle.HeightProperty, an1);
                 }
             }
+        }
+
+        /// <summary>
+        /// 返回拥有指定元素的容器
+        /// </summary>
+        /// <param name="container"></param>
+        /// <returns></returns>
+        public new static ItemsControl ItemsControlFromItemContainer(DependencyObject container)
+        {
+            UIElement uIElement = container as UIElement;
+            if (uIElement == null)
+            {
+                return null;
+            }
+
+            ItemsControl itemsControl = LogicalTreeHelper.GetParent(uIElement) as ItemsControl;
+            if (itemsControl != null)
+            {
+                var generatorHost = itemsControl;
+                if (generatorHost.IsItemItsOwnContainer(uIElement))
+                {
+                    return itemsControl;
+                }
+
+                return null;
+            }
+
+            uIElement = VisualTreeHelper.GetParent(uIElement) as UIElement;
+            var p = GetItemsOwner(uIElement);
+            if (p == null)
+            {
+                while (uIElement != null)
+                {
+                    if (uIElement is NavigationViewItems)
+                    {
+                        return (NavigationViewItems)uIElement;
+                    }
+
+                    uIElement = VisualTreeHelper.GetParent(uIElement) as UIElement;
+                }
+            }
+            return p;
         }
     }
 }

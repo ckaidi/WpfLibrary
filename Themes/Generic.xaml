@@ -17,6 +17,8 @@
         <ResourceDictionary Source="/WpfLibrary;component/Themes/NoDialogTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/GroupPanelTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/NavigationViewItemTemplete.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/NavigationViewItemsTemplete.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/NavigationViewAddableItemTemplete.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 
@@ -1077,34 +1079,6 @@
                 </Setter>
             </Trigger>
         </Style.Triggers>
-    </Style>
-
-    <Style TargetType="{x:Type local:NavigationViewItems}">
-        <Setter Property="BorderThickness" Value="0,0,0,0"/>
-        <Setter Property="BorderBrush" Value="LightGray"/>
-        <Setter Property="Background" Value="{StaticResource SystemDefaultTitleBackgroundBrush}"/>
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:NavigationViewItems}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                        <ScrollViewer Padding="{TemplateBinding Padding}" x:Name="MainScrollViewer">
-                            <ScrollViewer.RenderTransform>
-                                <ScaleTransform x:Name="ScrollViewerScaleTransform" CenterX="0"/>
-                            </ScrollViewer.RenderTransform>
-                            <Grid>
-                                <Rectangle Grid.Column="0" Width="3" Height="16" Fill="{StaticResource StatusBarFillColor}" RadiusX="2" RadiusY="2" x:Name="statusBar" 
-                                           VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,14,0,0" Panel.ZIndex="2"/>
-                                <ItemsPresenter Grid.Column="0" Grid.ColumnSpan="2" Tag="Menu"/>
-                            </Grid>
-                        </ScrollViewer>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <Style TargetType="{x:Type local:ToggleButton}">

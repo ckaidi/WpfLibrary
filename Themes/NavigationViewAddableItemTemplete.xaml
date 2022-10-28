@@ -5,22 +5,35 @@
         <ResourceDictionary Source="/WpfLibrary;component/Themes/BrushDic.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="{x:Type local:NavigationViewItem}">
+
+
+    <Style TargetType="{x:Type local:NavigationViewAddableItem}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:NavigationViewItem}">
+                <ControlTemplate TargetType="{x:Type local:NavigationViewAddableItem}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}" VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                            BorderThickness="{TemplateBinding BorderThickness}" Margin="4" Padding="4" CornerRadius="6">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="{TemplateBinding VerticalAlignment}">
-                            <TextBlock FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="IconTB"
+                            BorderThickness="{TemplateBinding BorderThickness}" Margin="4" Padding="4" CornerRadius="6" x:Name="MainBorder">
+                        <Grid VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="IconTB"
                                        Text="{TemplateBinding Icon}" FontSize="{TemplateBinding IconSize}" Margin="{StaticResource NavigationViewItemMargin}" Height="16"/>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" x:Name="CommandTB"
+                            <TextBlock Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" x:Name="CommandTB"
                                        Text="{TemplateBinding MenuText}" FontSize="{TemplateBinding MenuTextSize}" Margin="8,6,0,6" 
                                        Visibility="{TemplateBinding MenuTextVisable,Converter={StaticResource BindingVisibilityConverterCollapsed}}" Height="16">
                             </TextBlock>
-                        </StackPanel>
+                            <Border Grid.Column="3" x:Name="CloseTB" CornerRadius="3" Background="Transparent" Margin="12,5" HorizontalAlignment="Right">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"
+                                       Text="&#xE711;" Background="Transparent" Margin="3">
+                                </TextBlock>
+                            </Border>
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">

@@ -25,13 +25,24 @@ namespace WpfLibrary
         /// <summary>
         /// 所属的NavigationViewItems
         /// </summary>
-        private NavigationViewItems _parentNavigation
+        protected NavigationViewItems _parentNavigation
         {
             get
             {
-                return ItemsControl.ItemsControlFromItemContainer(this) as NavigationViewItems;
+                return NavigationViewItems.ItemsControlFromItemContainer(this) as NavigationViewItems;
             }
         }
+
+        /// <summary>
+        /// 是否可以被选中
+        /// </summary>
+        public bool IsSelectAble
+        {
+            get { return (bool)GetValue(IsSelectAbleProperty); }
+            set { SetValue(IsSelectAbleProperty, value); }
+        }
+        public static readonly DependencyProperty IsSelectAbleProperty =
+            DependencyProperty.Register("IsSelectAble", typeof(bool), typeof(NavigationViewItem), new PropertyMetadata(true));
 
         /// <summary>
         /// Segoe MDL2 Assets的icon
@@ -128,7 +139,7 @@ namespace WpfLibrary
         /// 鼠标左键点击时设置为选中
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             e.Handled = true;
 

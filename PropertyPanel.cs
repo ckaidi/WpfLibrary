@@ -21,7 +21,7 @@ namespace WpfLibrary
     /// <summary>
     /// 根据属性生成panel
     /// </summary>
-    public class PropertyPanel : Control, ISupportInitialize, INotifyPropertyChanged
+    public class PropertyPanel : Control
     {
         /// <summary>
         /// 最主要的panel
@@ -37,12 +37,7 @@ namespace WpfLibrary
             set { SetValue(CornerRadiusProperty, value); }
         }
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(NoWindow), new PropertyMetadata(new CornerRadius()));
-
-        /// <summary>
-        /// 属性改变事件
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(PropertyPanel), new PropertyMetadata(new CornerRadius()));
 
         /// <summary>
         /// 静态构造函数
@@ -60,6 +55,11 @@ namespace WpfLibrary
             Loaded += PropertyPanel_Loaded;
         }
 
+        public PropertyPanel(object o) : this()
+        {
+            DataContext = o;
+        }
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -75,10 +75,11 @@ namespace WpfLibrary
         /// <param name="e"></param>
         private void PropertyPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            _mainStackPanel = (StackPanel)Template.FindName("MainStackPanel", this);
             if (DataContext != null)
             {
                 //生成控件
+                var tc = TypeDescriptor.GetConverter(DataContext);
+
                 var properties = TypeDescriptor.GetProperties(DataContext);
                 foreach (PropertyDescriptor property in properties)
                 {

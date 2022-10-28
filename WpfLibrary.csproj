@@ -103,6 +103,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\NavigationViewAddableItemTemplete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\NavigationViewItemsTemplete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\NavigationViewItemTemplete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -164,6 +172,7 @@
     <Compile Include="MenuIsland.xaml.cs">
       <DependentUpon>MenuIsland.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NavigationViewAddableItem.cs" />
     <Compile Include="NavigationViewItem.cs" />
     <Compile Include="NavigationViewItems.cs" />
     <Compile Include="NoDialog.cs" />
