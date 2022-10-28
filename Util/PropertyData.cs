@@ -51,5 +51,16 @@ namespace WpfLibrary.Util
             DisplayName = displayNameAttribute == null ? propertyInfo.Name : displayNameAttribute.DisplayName;
             Description = propertyInfo.GetCustomAttribute<DescriptionAttribute>();
         }
+
+        /// <summary>
+        /// 获得属性的某种特性
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="property"></param>
+        /// <returns></returns>
+        internal static T GetAttribute<T>(PropertyDescriptor property) where T : Attribute
+        {
+            return property.Attributes.OfType<T>().FirstOrDefault();
+        }
     }
 }

@@ -32,11 +32,22 @@ namespace WpfLibrary
             DependencyProperty.Register("Label", typeof(string), typeof(GroupPanel), new PropertyMetadata("Label"));
 
         /// <summary>
+        /// 列表显示
+        /// </summary>
+        private ItemsPresenter _itemsPresenter;
+
+        /// <summary>
         /// 静态构造
         /// </summary>
         static GroupPanel()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GroupPanel), new FrameworkPropertyMetadata(typeof(GroupPanel)));
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            _itemsPresenter = GetTemplateChild("MainItemsPresenter") as ItemsPresenter;
         }
     }
 }

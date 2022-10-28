@@ -138,6 +138,11 @@ namespace WpfLibrary
             _unfoldWidth = _mainScrollViewer.ActualWidth;
             if (!IsFoldable)
                 _mainScrollViewer.MinWidth = _mainScrollViewer.ActualWidth;
+            //默认选中第一项
+            if (SelectedIndex == -1 && Items.Count > 0)
+            {
+                SelectedIndex = 0;
+            }
         }
 
         /// <summary>
@@ -313,6 +318,7 @@ namespace WpfLibrary
         /// <param name="e"></param>
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
+            if (_statusBar == null) return;
             if (e.NewStartingIndex == 0 && CanUserAddItem && Items.Count == 1)
             {
                 var item = e.NewItems[0] as NavigationViewItem;
