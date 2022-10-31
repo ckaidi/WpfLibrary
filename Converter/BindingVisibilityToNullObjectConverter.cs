@@ -4,16 +4,20 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
+using System.Windows;
 using System.Windows.Data;
 
 namespace WpfLibrary
 {
-    public class BindingTextConverter : IValueConverter
+    /// <summary>
+    /// 把可视绑定到一个引用类型上，如果为空则返回Collpased
+    /// 否则返回Visable
+    /// </summary>
+    public class BindingVisibilityToNullObjectConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value.ToString();
+            return value == null ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

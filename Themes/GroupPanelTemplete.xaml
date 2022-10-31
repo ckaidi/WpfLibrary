@@ -14,8 +14,9 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="{TemplateBinding Label,Converter={StaticResource BindingTextConverter}}" FontSize="18" FontWeight="Bold" Margin="6,0,0,0"/>
-                        <Border Margin="0,10,0,0" Grid.Row="1" CornerRadius="8" Background="{StaticResource ControlsInPageBackground}" BorderBrush="LightGray" BorderThickness="1">
+                        <TextBlock Text="{TemplateBinding Label}" FontSize="18" FontWeight="Bold" Margin="6,0,0,0"
+                                   x:Name="LabelTextBlock"/>
+                        <Border Margin="0,10,0,0" Grid.Row="1" CornerRadius="8" Background="{StaticResource ControlsInPageBackground}" BorderBrush="LightGray" BorderThickness="1" x:Name="MainBorder">
                             <StackPanel>
                                 <ItemsPresenter x:Name="MainItemsPresenter"/>
                             </StackPanel>

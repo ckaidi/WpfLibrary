@@ -36,7 +36,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource ComboBox.Disabled.Background}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Visibility" TargetName="statusRect" Value="Visible"/>

@@ -71,6 +71,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Style\DataGridStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Style\TextBoxStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,10 +161,10 @@
     <Compile Include="Converter\BindingReverseBooleanConverter.cs" />
     <Compile Include="Converter\BindingListDescriptionConverter.cs" />
     <Compile Include="Converter\BindingStringToAddString.cs" />
-    <Compile Include="Converter\BindingTextConverter.cs" />
     <Compile Include="Converter\BindingValueToAbsConverter.cs" />
     <Compile Include="Converter\BindingVisibilityConverterCollapsedConverter.cs" />
     <Compile Include="Converter\BindingVisibilityConverterHiddenConverter.cs" />
+    <Compile Include="Converter\BindingVisibilityToNullObjectConverter.cs" />
     <Compile Include="Converter\WindowStateMaximizedToThicknessConverter.cs" />
     <Compile Include="Converter\WindowStateNormalToThicknessConverter.cs" />
     <Compile Include="Extension\SystemExtension.cs" />
@@ -214,6 +218,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "F:\EasyBIM\bin\Debug\$(ProjectName).dll"</PostBuildEvent>
+    <PostBuildEvent>Copy "$(TargetPath)" "F:\EasyBIM\bin\Debug\$(ProjectName).dll"
+Copy "$(TargetPath)" "F:\SynologyDrive\0self\gha\$(ProjectName).dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>

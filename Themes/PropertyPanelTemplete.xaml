@@ -13,9 +13,7 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}">
                         <ScrollViewer x:Name="MainScrollViewer">
-                            <StackPanel x:Name="MainStackPanel">
-
-                            </StackPanel>
+                            <ItemsPresenter/>
                         </ScrollViewer>
                     </Border>
                 </ControlTemplate>

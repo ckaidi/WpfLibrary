@@ -5,6 +5,7 @@
     <local:BindingVisibilityConverterCollapsedConverter x:Key="BindingVisibilityConverterCollapsed"/>
     <local:WindowStateNormalToThicknessConverter x:Key="WindowStateNormalToThicknessConverter" />
     <local:BindingVisibilityConverterHiddenConverter x:Key="BindingVisibilityConverterHidden"/>
+    <local:BindingListDescriptionConverter x:Key="BindingVisibilityToNullObjectConverter"/>
     <local:BindingDoubleWithForumlaConverter x:Key="BindingDoubleWithForumlaConverter"/>
     <local:BindingListDescriptionConverter x:Key="BindingListDescriptionConverter"/>
     <local:BindingReverseBooleanConverter x:Key="BindingReverseBooleanConverter"/>
@@ -12,7 +13,6 @@
     <local:BindingDescriptionConverter x:Key="BindingDescriptionConverter"/>
     <local:BindingValueToAbsConverter x:Key="BindingValueToAbsConverter"/>
     <local:BindingStringToAddString x:Key="BindingStringToAddString"/>
-    <local:BindingTextConverter x:Key="BindingTextConverter"/>
 
     <SolidColorBrush x:Key="StatusBarFillColor" Color="#FF3C77DD"/>
     <LinearGradientBrush x:Key="ComboBox.MouseOver.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">

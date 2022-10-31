@@ -23,13 +23,8 @@ namespace WpfLibrary
     /// <summary>
     /// 根据属性生成panel
     /// </summary>
-    public class PropertyPanel : Control
+    public class PropertyPanel : ItemsControl
     {
-        /// <summary>
-        /// 最主要的panel
-        /// </summary>
-        private StackPanel _mainStackPanel;
-
         /// <summary>
         /// 圆角按钮
         /// </summary>
@@ -65,8 +60,6 @@ namespace WpfLibrary
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-
-            _mainStackPanel = GetTemplateChild("MainStackPanel") as StackPanel;
         }
 
         /// <summary>
@@ -76,6 +69,7 @@ namespace WpfLibrary
         {
             if (DataContext != null)
             {
+                Items.Clear();
                 //根据目录把属性分类
                 var categoryDics = new Dictionary<string, List<PropertyDescriptor>>();
                 var properties = TypeDescriptor.GetProperties(DataContext);
@@ -115,7 +109,23 @@ namespace WpfLibrary
                         var list = kvp.Value;
                         foreach (var item in list)
                         {
+                            //获得displayname
+                            var displayAttr = item.Attributes.OfType<DisplayNameAttribute>().FirstOrDefault();
+                            var displayname = displayAttr == null ? item.Name : displayAttr.DisplayName;
+                            if (item.PropertyType == typeof(string) || item.PropertyType == typeof(double) || item.PropertyType == typeof(int))
+                            {
+                                grouPanel.Items.Add(new TextBoxGroup() { Label = displayname });
+                            }
+                            else if (item.PropertyType.IsEnum)
+                            {
+                                grouPanel.Items.Add(new ComboBoxGroup() { Label = displayname });
+                            }
+                            else if (item.PropertyType == typeof(bool))
+                            {
+                                grouPanel.Items.Add(new ToggleSwitchGroup() { Label = displayname, IsHasText = false, });
+                            }
                         }
+                        Items.Add(grouPanel);
                     }
                 }
             }

@@ -15,6 +15,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Shell;
 using WpfLibrary.Util;
 using static WpfLibrary.Extension.SystemExtension;
 
@@ -25,6 +26,11 @@ namespace WpfLibrary
     /// </summary>
     public class NoWindow : Window
     {
+        /// <summary>
+        /// 标题dock栏的高度
+        /// </summary>
+        private int _dockHeight = 32;
+
         /// <summary>
         /// 最外层的边框
         /// </summary>
@@ -263,9 +269,41 @@ namespace WpfLibrary
             var result = new Button
             {
                 Content = content,
+                Height = _dockHeight,
                 FontFamily = new FontFamily("Segoe MDL2 Assets"),
                 Style = style
             };
+            DockPanel.SetDock(result, dock);
+            if (dock == Dock.Left)
+                _leftPanel.Children.Add(result);
+            else
+                _rightPanel.Children.Add(result);
+            return result;
+        }
+
+        /// <summary>
+        /// 添加文字按钮
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="dock"></param>
+        /// <returns></returns>
+        public Button AddDockTextButton(string content, Dock dock)
+        {
+            var style = FindResource("CaptionButtonStyle") as Style;
+            //添加左边按钮
+            var result = new Button
+            {
+                FontWeight = FontWeights.Bold,
+                Content = content,
+                Height = _dockHeight - 8,
+                Margin = new Thickness(3, 0, 3, 0),
+                Padding = new Thickness(5, 0, 5, 0),
+                BorderThickness = new Thickness(0),
+                BorderBrush = new SolidColorBrush(Colors.LightGray),
+                VerticalAlignment = VerticalAlignment.Center,
+            };
+            result.SetValue(Panel.ZIndexProperty, 10);
+            result.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
             DockPanel.SetDock(result, dock);
             if (dock == Dock.Left)
                 _leftPanel.Children.Add(result);

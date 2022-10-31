@@ -41,6 +41,17 @@ namespace WpfLibrary
             DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(ImageButton), new PropertyMetadata(new CornerRadius(10)));
 
         /// <summary>
+        /// 圆角设置
+        /// </summary>
+        public Thickness ImageMargin
+        {
+            get { return (Thickness)GetValue(ImageMarginProperty); }
+            set { SetValue(ImageMarginProperty, value); }
+        }
+        public static readonly DependencyProperty ImageMarginProperty =
+            DependencyProperty.Register("ImageMargin", typeof(Thickness), typeof(ImageButton), new PropertyMetadata(new Thickness(0)));
+
+        /// <summary>
         /// 按钮图片
         /// </summary>
         public ImageSource Source
@@ -63,6 +74,20 @@ namespace WpfLibrary
         public ImageButton()
         {
             InitializeComponent();
+            Loaded += ImageButton_Loaded;
+            SizeChanged += ImageButton_SizeChanged;
+        }
+
+        private void ImageButton_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ImageScaleTransform.CenterX = ActualWidth / 2;
+            ImageScaleTransform.CenterY = ActualHeight / 2;
+        }
+
+        private void ImageButton_Loaded(object sender, RoutedEventArgs e)
+        {
+            ImageScaleTransform.CenterX = ActualWidth / 2;
+            ImageScaleTransform.CenterY = ActualHeight / 2;
         }
 
         private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
