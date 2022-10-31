@@ -199,6 +199,7 @@
     <Compile Include="SearchControl.xaml.cs">
       <DependentUpon>SearchControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Style\DataGridStyleFun.cs" />
     <Compile Include="TextBoxGroup.cs" />
     <Compile Include="ToggleButton.cs" />
     <Compile Include="ToggleSwitch.cs" />
@@ -218,7 +219,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "F:\EasyBIM\bin\Debug\$(ProjectName).dll"
-Copy "$(TargetPath)" "F:\SynologyDrive\0self\gha\$(ProjectName).dll"</PostBuildEvent>
+    <PostBuildEvent>Copy "$(TargetPath)" "F:\EasyBIM\bin\Debug\$(ProjectName).dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>
