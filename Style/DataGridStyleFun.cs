@@ -39,6 +39,8 @@ namespace WpfLibrary
                         FrameworkElement root;
                         if (dataGridCell.IsEditing)
                             root = dataGridTemplateColumn.CellEditingTemplate.FindName("control", control) as FrameworkElement;
+                        if (!dataGridCell.IsEditing && !dataGrid.IsFocused && dataGridCell.IsFocused)
+                            root1 = dataGridTemplateColumn.CellEditingTemplate.FindName("control", control) as FrameworkElement;
                         else
                             root = dataGridTemplateColumn.CellTemplate.FindName("control", control) as FrameworkElement;
                         if (root.IsEnabled)
