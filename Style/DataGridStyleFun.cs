@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,29 +26,48 @@ namespace WpfLibrary
         {
             if (sender is DataGridCell dataGridCell)
             {
-                var parent = VisualTreeHelper.GetParent(dataGridCell);
-                while (parent != null && parent.GetType() != typeof(DataGrid))
-                {
-                    parent = VisualTreeHelper.GetParent(parent);
-                }
-                var dataGrid = parent as DataGrid;
-                if (dataGrid.CurrentCell.Column == dataGridCell.Column)
+                var celltype = typeof(DataGridCell);
+                var dataGridPorperty = celltype.GetProperty("DataGridOwner", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                var dataGrid = (DataGrid)dataGridPorperty.GetValue(dataGridCell);
+                var isCurrentPorperty = celltype.GetProperty("IsCurrent", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                var isCurrent = (bool)isCurrentPorperty.GetValue(dataGridCell);
+
+                if (isCurrent)
                 {
                     if (dataGridCell.Column is DataGridTemplateColumn dataGridTemplateColumn)
                     {
                         var control = dataGridTemplateColumn.GetCellContent(dataGrid.CurrentCell.Item) as FrameworkElement;
+                        dataGridCell.Template.FindName("control", dataGridCell);
                         FrameworkElement root;
-                        if (dataGridCell.IsEditing)
-                            root = dataGridTemplateColumn.CellEditingTemplate.FindName("control", control) as FrameworkElement;
-                        else
-                            root = dataGridTemplateColumn.CellTemplate.FindName("control", control) as FrameworkElement;
-                        if (root.IsEnabled)
-                            dataGrid.BeginEdit();
+                        try
+                        {
+                            if (dataGridCell.IsEditing)
+                                root = dataGridTemplateColumn.CellEditingTemplate.FindName("control", control) as FrameworkElement;
+                            else
+                                root = dataGridTemplateColumn.CellTemplate.FindName("control", control) as FrameworkElement;
+                            if (root.IsEnabled)
+                                dataGrid.BeginEdit();
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine(ex.Source);
+                            Debug.WriteLine(ex.StackTrace);
+                        }
                     }
                     else
                         dataGrid.BeginEdit();
                 }
             }
         }
+
+        //private void DataGridCell_PreviewGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        //{
+        //    Debug.WriteLine("PreviewGotKeyboardFocus");
+        //}
+
+        //private void DataGridCell_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    Debug.WriteLine("LostFocus");
+        //}
     }
 }
