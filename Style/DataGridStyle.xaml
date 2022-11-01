@@ -7,6 +7,7 @@
         <ResourceDictionary Source="/WpfLibrary;component/Style/ComboBoxItemStyle.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/BrushDic.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Style/ComboBoxStyle.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Style/ScrollViewerStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type DataGridCell}">
@@ -89,7 +90,8 @@
     </Style>
 
 
-    <Style x:Key="{ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}" TargetType="{x:Type Button}">
+    <Style x:Key="{ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}" 
+           TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
