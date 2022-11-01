@@ -19,6 +19,8 @@
         <ResourceDictionary Source="/WpfLibrary;component/Themes/NavigationViewItemTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/NavigationViewItemsTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Themes/NavigationViewAddableItemTemplete.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/DataGridDynamicColumnHeaderTemplete.xaml"/>
+        <ResourceDictionary Source="/WpfLibrary;component/Themes/DataGridDynamicColumnHeaderPrensenterTemplete.xaml"/>
         <ResourceDictionary Source="/WpfLibrary;component/Style/ScrollViewerStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 

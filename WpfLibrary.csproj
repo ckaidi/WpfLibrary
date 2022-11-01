@@ -51,6 +51,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Themes\DataGridDynamicColumnHeaderPrensenterTemplete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ImageButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -96,6 +100,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\ComboBoxGroupTemplete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\DataGridDynamicColumnHeaderTemplete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,6 +179,8 @@
     <Compile Include="Converter\BindingVisibilityToNullObjectConverter.cs" />
     <Compile Include="Converter\WindowStateMaximizedToThicknessConverter.cs" />
     <Compile Include="Converter\WindowStateNormalToThicknessConverter.cs" />
+    <Compile Include="DataGridDynamicColumnHeader.cs" />
+    <Compile Include="DataGridDynamicColumnHeaderPrensenter.cs" />
     <Compile Include="Extension\SystemExtension.cs" />
     <Compile Include="GroupControl.cs" />
     <Compile Include="GroupPanel.cs" />

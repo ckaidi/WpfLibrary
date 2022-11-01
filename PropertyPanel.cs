@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing.Imaging;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -112,18 +114,42 @@ namespace WpfLibrary
                             //获得displayname
                             var displayAttr = item.Attributes.OfType<DisplayNameAttribute>().FirstOrDefault();
                             var displayname = displayAttr == null ? item.Name : displayAttr.DisplayName;
+                            Control control = null;
                             if (item.PropertyType == typeof(string) || item.PropertyType == typeof(double) || item.PropertyType == typeof(int))
                             {
-                                grouPanel.Items.Add(new TextBoxGroup() { Label = displayname });
+                                control = new TextBoxGroup() { Label = displayname };
+                                var binding = new Binding(item.Name)
+                                {
+                                    Source = GetValueInstance(DataContext, item),
+                                    Mode = item.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                                    ValidatesOnDataErrors = true,
+                                    ValidatesOnExceptions = true,
+                                    ConverterCulture = CultureInfo.CurrentCulture,
+                                    Converter = new BindingDescriptionConverter(),
+                                };
+                                BindingOperations.SetBinding(control, TextBoxGroup.TextProperty, binding);
                             }
                             else if (item.PropertyType.IsEnum)
                             {
-                                grouPanel.Items.Add(new ComboBoxGroup() { Label = displayname });
+                                control = new ComboBoxGroup() { Label = displayname };
+                                var binding = new Binding(item.Name)
+                                {
+                                    Source = GetValueInstance(DataContext, item),
+                                    Mode = item.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                                    ValidatesOnDataErrors = true,
+                                    ValidatesOnExceptions = true,
+                                    ConverterCulture = CultureInfo.CurrentCulture,
+                                    Converter = new BindingDescriptionConverter(),
+                                };
+                                BindingOperations.SetBinding(control, ComboBoxGroup.SelectedItemProperty, binding);
                             }
                             else if (item.PropertyType == typeof(bool))
                             {
-                                grouPanel.Items.Add(new ToggleSwitchGroup() { Label = displayname, IsHasText = false, });
+                                control = new ToggleSwitchGroup() { Label = displayname, IsHasText = false, };
                             }
+
+                            if (control != null)
+                                grouPanel.Items.Add(control);
                         }
                         Items.Add(grouPanel);
                     }
@@ -152,6 +178,15 @@ namespace WpfLibrary
         private void PropertyPanel_Loaded(object sender, RoutedEventArgs e)
         {
             Update();
+        }
+
+        internal static object GetValueInstance(object sourceObject, PropertyDescriptor propertyDescriptor)
+        {
+            ICustomTypeDescriptor customTypeDescriptor = sourceObject as ICustomTypeDescriptor;
+            if (customTypeDescriptor != null)
+                sourceObject = customTypeDescriptor.GetPropertyOwner(propertyDescriptor);
+
+            return sourceObject;
         }
     }
 }
