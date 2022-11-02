@@ -99,7 +99,7 @@
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" x:Name="MainBorder">
                         <Grid x:Name="LayoutRoot" Background="{TemplateBinding Background}">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="32" />
+                                <RowDefinition Height="32"/>
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <DockPanel Grid.Row="0" Background="{StaticResource SystemDefaultTitleBackgroundBrush}" Name="TitleDock">
@@ -115,7 +115,8 @@
                                    VerticalAlignment="Center"/>
                                 </Grid>
                                 <Button DockPanel.Dock="Right" x:Name="CloseBtn" Style="{StaticResource CaptionCloseButtonStyle}"
-                                        Content="&#xE894;" FontFamily="Segoe MDL2 Assets">
+                                        Content="&#xE894;" FontFamily="Segoe MDL2 Assets" 
+                                        Visibility="{TemplateBinding IsCloseButton,Converter={StaticResource BindingVisibilityConverterCollapsed}}">
                                 </Button>
                                 <Button DockPanel.Dock="Right" x:Name="MaximizeButton" Tag="Normal" FontFamily="Segoe MDL2 Assets">
                                     <Button.Style>

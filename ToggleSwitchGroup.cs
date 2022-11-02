@@ -30,7 +30,7 @@ namespace WpfLibrary
             set { SetValue(IsHasTextProperty, value); }
         }
         public static readonly DependencyProperty IsHasTextProperty =
-            DependencyProperty.Register("IsHasText", typeof(bool), typeof(ToggleSwitchGroup), new PropertyMetadata(true));
+            DependencyProperty.Register("IsHasText", typeof(bool), typeof(ToggleSwitchGroup), new PropertyMetadata(false));
 
         /// <summary>
         /// ComboBox IsChecked

@@ -74,7 +74,7 @@ namespace WpfLibrary
             set { SetValue(IsHasTextProperty, value); }
         }
         public static readonly DependencyProperty IsHasTextProperty =
-            DependencyProperty.Register("IsHasText", typeof(bool), typeof(ToggleSwitch), new PropertyMetadata(true));
+            DependencyProperty.Register("IsHasText", typeof(bool), typeof(ToggleSwitch), new PropertyMetadata(false));
 
         /// <summary>
         /// 静态构造函数

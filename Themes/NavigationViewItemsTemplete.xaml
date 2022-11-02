@@ -36,7 +36,7 @@
                                     <ItemsPresenter Grid.ColumnSpan="2" Tag="Menu"/>
                                 </Grid>
                             </ScrollViewer>
-                            <Rectangle Height="1" Fill="LightGray" Grid.Row="1" Margin="5,0"/>
+                            <!--<Rectangle Height="1" Fill="LightGray" Grid.Row="1" Margin="5,0"/>-->
                             <local:NavigationViewAddableItem Grid.Row="2" Width="132"
                                 Icon="&#xE710;" IsDefaultAddItem="True" MenuText="{TemplateBinding ItemAddText}" IsSelectAble="False" x:Name="AddViewItem"
                                 Visibility="{TemplateBinding CanUserAddItem,Converter={StaticResource BindingVisibilityConverterCollapsed}}"/>

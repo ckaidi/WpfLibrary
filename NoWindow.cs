@@ -125,6 +125,17 @@ namespace WpfLibrary
             DependencyProperty.Register("IsMinizeButton", typeof(bool), typeof(NoWindow), new PropertyMetadata(true));
 
         /// <summary>
+        /// 是否显示关闭按钮
+        /// </summary>
+        public bool IsCloseButton
+        {
+            get { return (bool)GetValue(IsCloseButtonProperty); }
+            set { SetValue(IsCloseButtonProperty, value); }
+        }
+        public static readonly DependencyProperty IsCloseButtonProperty =
+            DependencyProperty.Register("IsCloseButton", typeof(bool), typeof(NoWindow), new PropertyMetadata(true));
+
+        /// <summary>
         /// 是否显示导航菜单按钮
         /// </summary>
         public bool IsNavigationButton
