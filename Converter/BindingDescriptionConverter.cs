@@ -10,9 +10,9 @@ using System.Windows.Data;
 
 namespace WpfLibrary
 {
+
     /// <summary>
     /// 将属性展示在wpf的数据转换成其Description特性指定的形式
-    /// 添加了对kenull枚举类型的支持
     /// </summary>
     public class BindingDescriptionConverter : IValueConverter
     {
@@ -55,7 +55,7 @@ namespace WpfLibrary
                     }
                 }
             }
-            return null;
+            return value;
         }
     }
 }
