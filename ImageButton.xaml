@@ -20,7 +20,10 @@
              MouseLeftButtonDown="Button_MouseDown" MouseLeftButtonUp="Button_MouseUp" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
         <Image x:Name="MainImage" Source="{Binding ElementName=MainControl,Path=Source}" Stretch="Fill" Margin="{Binding ElementName=MainControl,Path=ImageMargin}">
             <Image.RenderTransform>
-                <ScaleTransform x:Name="ImageScaleTransform" CenterX="18" CenterY="18"/>
+                <TransformGroup>
+                    <ScaleTransform x:Name="ImageScaleTransform" CenterX="18" CenterY="18"/>
+                    <RotateTransform x:Name="ImageRotateTransform" Angle="{Binding ElementName=MainControl,Path=Rotation}"/>
+                </TransformGroup>
             </Image.RenderTransform>
         </Image>
     </Border>

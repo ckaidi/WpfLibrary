@@ -52,6 +52,17 @@ namespace WpfLibrary
             DependencyProperty.Register("ImageMargin", typeof(Thickness), typeof(ImageButton), new PropertyMetadata(new Thickness(0)));
 
         /// <summary>
+        /// 圆角设置
+        /// </summary>
+        public double Rotation
+        {
+            get { return (double)GetValue(RotationProperty); }
+            set { SetValue(RotationProperty, value); }
+        }
+        public static readonly DependencyProperty RotationProperty =
+            DependencyProperty.Register("Rotation", typeof(double), typeof(ImageButton), new PropertyMetadata(0.0));
+
+        /// <summary>
         /// 按钮图片
         /// </summary>
         public ImageSource Source
@@ -88,13 +99,13 @@ namespace WpfLibrary
         {
             ImageScaleTransform.CenterX = ActualWidth / 2;
             ImageScaleTransform.CenterY = ActualHeight / 2;
+
+            ImageRotateTransform.CenterX = ActualWidth / 2;
+            ImageRotateTransform.CenterY = ActualHeight / 2;
         }
 
         private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is ImageButton imageButton)
-            {
-            }
         }
 
         private void Button_MouseDown(object sender, MouseButtonEventArgs e)

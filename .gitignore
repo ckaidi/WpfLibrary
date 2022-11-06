@@ -8,3 +8,5 @@
 /TestProject
 /WpfLibraryTest/bin/Debug/net472
 /WpfLibraryTest/obj
+/bin/Release
+/obj/Release
