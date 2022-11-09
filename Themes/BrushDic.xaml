@@ -9,6 +9,7 @@
     <local:BindingDoubleWithForumlaConverter x:Key="BindingDoubleWithForumlaConverter"/>
     <local:BindingListDescriptionConverter x:Key="BindingListDescriptionConverter"/>
     <local:BindingReverseBooleanConverter x:Key="BindingReverseBooleanConverter"/>
+    <local:BindingRadiansToAngleConverter x:Key="BindingRadiansToAngleConverter"/>
     <local:BindingCornerRadiusToThickness x:Key="BindingCornerRadiusToThickness"/>
     <local:BindingDescriptionConverter x:Key="BindingDescriptionConverter"/>
     <local:BindingValueToAbsConverter x:Key="BindingValueToAbsConverter"/>
