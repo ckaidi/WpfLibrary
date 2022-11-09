@@ -24,7 +24,7 @@ namespace WpfLibrary
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is double num)
+            if (double.TryParse(value.ToString(), out double num))
             {
                 return num * _factorTo;
             }
@@ -33,9 +33,9 @@ namespace WpfLibrary
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is double num)
+            if (double.TryParse(value.ToString(), out double num))
             {
-                return num * _factorBack;
+                return Math.Round(num * _factorBack, 2);
             }
             return double.NaN;
         }
