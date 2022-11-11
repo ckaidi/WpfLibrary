@@ -15,6 +15,9 @@ using System.Windows.Shapes;
 
 namespace WpfLibrary
 {
+    /// <summary>
+    /// 明细表的表头
+    /// </summary>
     public class DataGridDynamicColumnHeader : Control
     {
         static DataGridDynamicColumnHeader()
