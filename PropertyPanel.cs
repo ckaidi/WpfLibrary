@@ -18,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfLibrary.Converter;
 using WpfLibrary.Util;
 
 namespace WpfLibrary
@@ -54,6 +55,8 @@ namespace WpfLibrary
             Loaded += PropertyPanel_Loaded;
             DataContextChanged += PropertyPanel_DataContextChanged;
         }
+
+
         public PropertyPanel(object o) : this()
         {
             DataContext = o;
@@ -103,56 +106,75 @@ namespace WpfLibrary
                 Debug.Assert(categoryDics.Count > 0);
 
                 //生成控件
-                if (categoryDics.Count == 1)
+                int categoryCount = 1;
+                foreach (var kvp in categoryDics)
                 {
-                    foreach (var kvp in categoryDics)
+                    var grouPanel = new GroupPanel();
+                    var list = kvp.Value;
+                    grouPanel.Label = kvp.Key;
+                    foreach (var item in list)
                     {
-                        var grouPanel = new GroupPanel();
-                        var list = kvp.Value;
-                        foreach (var item in list)
+                        //获得displayname
+                        var displayAttr = item.Attributes.OfType<DisplayNameAttribute>().FirstOrDefault();
+                        var displayname = displayAttr == null ? item.Name : displayAttr.DisplayName;
+                        Control control = null;
+                        if (item.PropertyType == typeof(string) || item.PropertyType == typeof(double) || item.PropertyType == typeof(int))
                         {
-                            //获得displayname
-                            var displayAttr = item.Attributes.OfType<DisplayNameAttribute>().FirstOrDefault();
-                            var displayname = displayAttr == null ? item.Name : displayAttr.DisplayName;
-                            Control control = null;
-                            if (item.PropertyType == typeof(string) || item.PropertyType == typeof(double) || item.PropertyType == typeof(int))
+                            control = new TextBoxGroup() { Label = displayname };
+                            var binding = new Binding(item.Name)
                             {
-                                control = new TextBoxGroup() { Label = displayname };
-                                var binding = new Binding(item.Name)
-                                {
-                                    Source = GetValueInstance(DataContext, item),
-                                    Mode = item.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
-                                    ValidatesOnDataErrors = true,
-                                    ValidatesOnExceptions = true,
-                                    ConverterCulture = CultureInfo.CurrentCulture,
-                                    Converter = new BindingDescriptionConverter(),
-                                };
-                                BindingOperations.SetBinding(control, TextBoxGroup.TextProperty, binding);
-                            }
-                            else if (item.PropertyType.IsEnum)
-                            {
-                                control = new ComboBoxGroup() { Label = displayname };
-                                var binding = new Binding(item.Name)
-                                {
-                                    Source = GetValueInstance(DataContext, item),
-                                    Mode = item.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
-                                    ValidatesOnDataErrors = true,
-                                    ValidatesOnExceptions = true,
-                                    ConverterCulture = CultureInfo.CurrentCulture,
-                                    Converter = new BindingDescriptionConverter(),
-                                };
-                                BindingOperations.SetBinding(control, ComboBoxGroup.SelectedItemProperty, binding);
-                            }
-                            else if (item.PropertyType == typeof(bool))
-                            {
-                                control = new ToggleSwitchGroup() { Label = displayname, IsHasText = false, };
-                            }
-
-                            if (control != null)
-                                grouPanel.Items.Add(control);
+                                Source = GetValueInstance(DataContext, item),
+                                Mode = item.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                                ValidatesOnDataErrors = true,
+                                ValidatesOnExceptions = true,
+                                ConverterCulture = CultureInfo.CurrentCulture,
+                                Converter = new BindingStringToValue(),
+                            };
+                            BindingOperations.SetBinding(control, TextBoxGroup.TextProperty, binding);
                         }
-                        Items.Add(grouPanel);
+                        else if (item.PropertyType.IsEnum)
+                        {
+                            control = new ComboBoxGroup() { Label = displayname };
+                            var binding = new Binding(item.Name)
+                            {
+                                Source = GetValueInstance(DataContext, item),
+                                Mode = item.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                                ValidatesOnDataErrors = true,
+                                ValidatesOnExceptions = true,
+                                ConverterCulture = CultureInfo.CurrentCulture,
+                                Converter = new BindingDescriptionConverter(),
+                            };
+
+                            var bindingItems = new Binding(".")
+                            {
+                                Source = Enum.GetValues(item.PropertyType),
+                                Mode = item.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                                ValidatesOnDataErrors = true,
+                                ValidatesOnExceptions = true,
+                                ConverterCulture = CultureInfo.CurrentCulture,
+                                Converter = new BindingListDescriptionConverter(),
+                            };
+                            BindingOperations.SetBinding(control, ComboBoxGroup.SelectedItemProperty, binding);
+                            BindingOperations.SetBinding(control, ComboBoxGroup.ItemsSourceProperty, bindingItems);
+                        }
+                        else if (item.PropertyType == typeof(bool))
+                        {
+                            control = new ToggleSwitchGroup() { Label = displayname, IsHasText = false, };
+                        }
+
+                        if (control != null)
+                            grouPanel.Items.Add(control);
                     }
+                    if (categoryCount == categoryDics.Count)
+                    {
+                        grouPanel.Margin = new Thickness(0, 40, 0, 40);
+                    }
+                    else
+                    {
+                        grouPanel.Margin = new Thickness(0, 40, 0, 0);
+                    }
+                    Items.Add(grouPanel);
+                    categoryCount++;
                 }
             }
         }

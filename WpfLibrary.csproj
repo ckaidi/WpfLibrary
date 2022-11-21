@@ -178,6 +178,7 @@
     <Compile Include="Converter\BindingReverseBooleanConverter.cs" />
     <Compile Include="Converter\BindingListDescriptionConverter.cs" />
     <Compile Include="Converter\BindingStringToAddString.cs" />
+    <Compile Include="Converter\BindingStringToValue.cs" />
     <Compile Include="Converter\BindingValueToAbsConverter.cs" />
     <Compile Include="Converter\BindingVisibilityConverterCollapsedConverter.cs" />
     <Compile Include="Converter\BindingVisibilityConverterHiddenConverter.cs" />

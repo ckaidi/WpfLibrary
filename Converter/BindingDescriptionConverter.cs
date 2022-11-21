@@ -20,12 +20,10 @@ namespace WpfLibrary
         {
             if (value == null) return null;
             var f = value.GetType().GetField(value.ToString());
-            var attrs = f.GetCustomAttributes(typeof(DescriptionAttribute), true);
-            if (attrs.Length == 0) return null;
-            var a = attrs[0];
-            if (a is DescriptionAttribute description)
-                return description.Description;
-            return null;
+            var attrs = f.GetCustomAttribute<DescriptionAttribute>();
+            if (attrs != null)
+                return attrs.Description;
+            return value.ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -45,11 +43,10 @@ namespace WpfLibrary
                 fs = targetType.GetFields();
             foreach (var f in fs)
             {
-                var attrs = f.GetCustomAttributes(typeof(DescriptionAttribute), true);
-                if (attrs.Length == 0) continue;
-                if (attrs[0] is DescriptionAttribute description)
+                var attrs = f.GetCustomAttribute<DescriptionAttribute>();
+                if (attrs != null)
                 {
-                    if (description.Description == value.ToString())
+                    if (attrs.Description == value.ToString())
                     {
                         return Enum.Parse(t, f.Name, true);
                     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
@@ -23,9 +24,8 @@ namespace WpfLibrary
                 {
                     var t = item.GetType();
                     var f = t.GetField(item.ToString());
-                    var a = f.GetCustomAttributes(typeof(DescriptionAttribute), true)[0];
-                    if (a is DescriptionAttribute description)
-                        result.Add(description.Description);
+                    var a = f.GetCustomAttribute<DescriptionAttribute>();
+                    result.Add(a == null ? f.Name : a.Description);
                 }
             }
             return result;
